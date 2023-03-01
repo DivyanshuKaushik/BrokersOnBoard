@@ -33,7 +33,6 @@ async function brokerSignUp(req,res){
         );
         await User.findByIdAndUpdate(saved._id,{visitingCard:img_url});
         return res.status(201).json({message:"User created successfully"});
-
     }catch(err){
         return res.status(500).json({error:"Internal server error"});
     }
