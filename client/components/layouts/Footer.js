@@ -25,7 +25,7 @@ export default function Footer() {
                         Quick Links
                     </h3>
                    <ul className="space-y-2">
-                        {quickLinks.map((link, index) => (<li className="text-slate-400 text-xs">{link}</li>))}
+                        {quickLinks.map((link, index) => (<li key={index} className="text-slate-400 text-xs">{link}</li>))}
                    </ul>
                 </div>
                 <div className="">
@@ -33,7 +33,7 @@ export default function Footer() {
                         Contact Us
                     </h3>
                    <ul className="space-y-2">
-                        {contact.map((link, index) => (<li className="text-slate-400 text-xs">{link}</li>))}
+                        {contact.map((link, index) => (<li key={index} className="text-slate-400 text-xs">{link}</li>))}
                    </ul>
                 </div>
                 <div className="">
@@ -41,7 +41,7 @@ export default function Footer() {
                         Follow Us
                     </h3>
                    <ul className="flex space-x-2">
-                        {socials.map((link, index) => (<li className="text-slate-400 text-xs">{link}</li>))}
+                        {socials.map((link, index) => (<li key={index} className="text-slate-400 text-xs">{link}</li>))}
                    </ul>
                 </div>
             </div>
