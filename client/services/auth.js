@@ -13,17 +13,19 @@ export async function login(email, password) {
 export async function userSignUp(user) {
     let res = {};
     try {
-        const { fisrtName, lastName, email, password, confirmPassword } = user;
-        if (!(fisrtName && lastName && email && password && confirmPassword)) {
-            return (res.error = "Please fill all the fields");
+        const { firstName, lastName, email,phone, password, confirmPassword } = user;
+        if (!(firstName && lastName && email && phone && password && confirmPassword)) {
+
+            throw Error("Please fill all the fields");
         }
-        if (user.password === user.confirmPassword) {
-            return (res.error = "Passwords do not match");
+        if (user.password !== user.confirmPassword) {
+            throw Error("Passwords do not match");
         }
         res.data = (
             await api.post("/auth/user/signup", {
-                fisrtName,
+                firstName,
                 lastName,
+                phone,
                 email,
                 password,
             })
@@ -38,34 +40,37 @@ export async function brokerSignUp(broker) {
     let res = {};
     try {
         const {
-            fisrtName,
+            firstName,
             lastName,
             email,
+            phone,
             password,
             confirmPassword,
             visitingCard,
         } = broker;
         if (
             !(
-                fisrtName &&
+                firstName &&
                 lastName &&
                 email &&
+                phone &&
                 password &&
                 confirmPassword &&
                 visitingCard
             )
         ) {
-            return (res.error = "Please fill all the fields");
+            throw Error("Please fill all the fields");
         }
-        if (broker.password === broker.confirmPassword) {
-            return (res.error = "Passwords do not match");
+        if (broker.password !== broker.confirmPassword) {
+            throw Error("Passwords do not match");
         }
         const formData = new FormData();
 
         formData.append("visitingCard", visitingCard);
-        formData.append("fisrtName", fisrtName);
+        formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("email", email);
+        formData.append("phone", phone);
         formData.append("password", password);
 
         res.data = (

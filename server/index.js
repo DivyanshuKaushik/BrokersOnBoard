@@ -16,7 +16,7 @@ app.use(cookieParser())
 
 /**  cors configuration  */
 const corsOptions = {
-    origin:"*",
+    origin:["http://localhost:3000","https://brokers-on-board.vercel.app"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionsSuccessStatus: 200,
     credentials:true,

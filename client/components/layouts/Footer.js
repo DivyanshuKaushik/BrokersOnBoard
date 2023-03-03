@@ -8,7 +8,7 @@ const contact  = ["info@brokeronboard.com","Bilaspur CG India", "Mon - Fri 9:00 
 const socials = [<BsFacebook size={20} />, <BsTwitter size={20} />, <BsInstagram size={20} />]
 export default function Footer() {
     return (
-        <footer className="">
+        <footer className="w-screen">
             <div className="bg-slate-700 px-10 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:justify-items-center gap-4 py-4">
                 <div className="">
                     <h3 className="text-white font-semibold my-4">

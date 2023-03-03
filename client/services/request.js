@@ -17,7 +17,7 @@ export async function addNewRequest(request) {
                 propertyType
             )
         ) {
-            return (res.error = "Please fill all the fields");
+            throw Error("Please fill all the fields");
         }
         res.data = (
             await api.post("/request/add", request)
@@ -45,7 +45,7 @@ export async function updateRequest(id,request){
                 propertyType
             )
         ) {
-            return (res.error = "Please fill all the fields");
+            throw Error("Please fill all the fields");
         }
         res.data = (
             await api.put(`/request/update/${id}`, request)

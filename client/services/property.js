@@ -31,7 +31,7 @@ export async function addNewProperty(property) {
                 images
             )
         ) {
-            return (res.error = "Please fill all the fields");
+            throw Error("Please fill all the fields");
         }
         const formData = new FormData();
 
@@ -88,7 +88,7 @@ export async function updateProperty(id,property){
                 requestType
             )
         ) {
-            return (res.error = "Please fill all the fields");
+            throw Error("Please fill all the fields");
         }
         res.data = (
             await api.put(`/property/update/${id}`, property)
