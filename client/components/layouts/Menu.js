@@ -54,6 +54,7 @@ export default function Menu() {
     return (
         <div className="absolute top-[10%] right-8 z-40 bg-white p-2">
             <ul className="flex flex-col space-y-2">
+            
                 {options[user.role].map(({ title, icon, url }, i) => (
                     <Link key={i} href={url}>
                         <li className="flex items-center space-x-2 p-2 border-b">
