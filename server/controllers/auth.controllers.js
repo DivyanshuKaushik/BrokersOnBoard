@@ -73,7 +73,7 @@ async function login(req,res){
             return res.status(422).json({error:"Invalid credentials"});
         }
         const token = await user.generateAuthToken();
-        res.cookie('accessToken',token,{expiresIn:'10d'})
+        res.cookie('accessToken',token,{expiresIn:'10d',httpOnly:true})
         return res.status(200).json({token});
 
     }catch(err){
