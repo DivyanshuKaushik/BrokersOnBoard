@@ -47,7 +47,7 @@ const userOptions = [
 ];
 export default function Navbar() {
     const { pathname } = useRouter();
-    const user = true;
+    const user = false;
     return (
         <header className="grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 shadow-md w-screen">
             {/* logo  */}
@@ -106,12 +106,18 @@ export default function Navbar() {
                 <>
                     {/* auth buttons  */}
                     <div className="flex space-x-4">
+                        <Link href="/signin">
                         <button className="bg-primary text-white px-4 py-1 rounded-sm hover:bg-gray-100 hover:text-gray-800 active:scale-90 transition-all duration-200 ease-in">
-                            Login
+                            Sign In
                         </button>
+
+                        </Link>
+                        <Link href="/signup">
                         <button className="bg-primary text-white px-4 py-1 rounded-sm hover:bg-gray-100 hover:text-gray-800 active:scale-90 transition-all duration-200 ease-in">
-                            Register
+                            Sign Up
                         </button>
+
+                        </Link>
                     </div>
                 </>
             )}

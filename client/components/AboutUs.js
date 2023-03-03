@@ -43,7 +43,7 @@ export default function AboutUs() {
                 </div>
                 {/* image  */}
                 <div className="relative p-4 h-[300px] lg:h-full">
-                    <Image src={img} fill className="rounded-md" />
+                    <Image src={img} fill className="rounded-md object-contain" />
                 </div>
             </div>
         </section>

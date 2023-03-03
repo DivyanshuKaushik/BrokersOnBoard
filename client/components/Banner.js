@@ -5,7 +5,7 @@ import banner from "../public/banner.jpeg";
 import Search from "./Search";
 export default function Banner() {
     return (
-        <section className="container">
+        <section className="">
             <div className="relative h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] 2xl:h-[800px] w-screen">
                 <Image src={banner} fill className="brightness-75" />
                 <div className="absolute bottom-[20%] md:bottom-[30%] lg:bottom-[40%] text-center w-full space-y-3">

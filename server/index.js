@@ -16,7 +16,7 @@ app.use(cookieParser())
 
 /**  cors configuration  */
 const corsOptions = {
-    origin:["*"],
+    origin:"*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionsSuccessStatus: 200,
     credentials:true,
