@@ -13,7 +13,7 @@ import { MdOutlineAttachMoney, MdOutlineHistory } from "react-icons/md";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserProvider";
 
-const DynamicMenu = dynamic(() => import("./Menu"), {loading: () => "Loading... "});
+const DynamicMenu = dynamic(() => import("./Menu"), {ssr:false,loading: () => "Loading... "});
 
 const menuItems = [
     {
