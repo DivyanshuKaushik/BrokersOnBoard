@@ -1,16 +1,7 @@
 const multer = require("multer");
-// import { dirname } from "path";
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         console.log(file);
-//         cb(null, `${dirname(String(require.main?.filename))}/uploads/`);
-//     },
 
-//     filename: function (req: any, file: any, cb: any) {
-//         cb(null, file.originalname);
-//     },
-// });
 const storage = multer.memoryStorage();
+
 const fileFilter = (req, file, cb) => {
     if (
         file.mimetype === "image/jpg" ||
@@ -24,9 +15,11 @@ const fileFilter = (req, file, cb) => {
         cb(new Error("Image uploaded is not of type jpg/jpeg or png"), false);
     }
 };
+
 const limits = {
     fileSize: 1024*1024*5,
 }
+
 const upload = multer({storage,fileFilter,limits});
 
 module.exports = upload;

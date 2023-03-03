@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const buySchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
     address: {
         type: String,
         trim: true,
@@ -18,6 +18,10 @@ const buySchema = new mongoose.Schema({
     pincode:{
         type:Number,
     },
+    propertyType:{
+        type: String,
+        default: "land",
+    },
     requestType:{
         type: String,
         enum: ["buy","rent"],
@@ -27,8 +31,8 @@ const buySchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"User"
     }
-});
+},{timestamps:true});
 
-const Buy = mongoose.model("Buy", buySchema);
+const Request = mongoose.model("Request", requestSchema);
 
-module.exports = Buy;
+module.exports = Request;

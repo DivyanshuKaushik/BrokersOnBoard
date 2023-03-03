@@ -47,14 +47,18 @@ const propertySchema = new mongoose.Schema({
     ],
     propertyType:{
         type: String,
-        enum: ["house","apartment","condo","townhouse","land","other"],
         default: "land",
+    },
+    requestType:{
+        type: String,
+        enum: ["sale","rent"],
+        default: "sale",
     },
     broker:{
         type: mongoose.Types.ObjectId,
         ref:'User'
     }
-});
+},{timestamps:true});
 
 
 const Property = mongoose.model("Property", propertySchema);

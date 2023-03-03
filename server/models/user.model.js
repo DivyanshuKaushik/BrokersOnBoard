@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
+    phone: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     password: {
         type: String,
         required: true,
@@ -32,7 +37,7 @@ const userSchema = new mongoose.Schema({
         enum: ["user","broker","admin"],
         default: "user",
     },
-});
+},{timestamps:true});
 
 // middleware to hash the password before saving to database using bcryptjs
 userSchema.pre('save',async function(next){

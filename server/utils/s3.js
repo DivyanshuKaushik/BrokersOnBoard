@@ -1,8 +1,8 @@
 const AWS = require("aws-sdk");
 const sharp = require("sharp");
-const dotenv = require("dotenv");
 
-dotenv.config()
+require("dotenv").config();
+
 // initialize and configure aws s3 instance
 const s3 = new AWS.S3({
     accessKeyId: process.env.DK_AWS_ACCESS_KEY_ID,
@@ -12,7 +12,6 @@ const s3 = new AWS.S3({
 
 /** upload image to AWS S3 */
 const uploadImage = (image, name) => {
-    config()
     return new Promise(async (resolve, reject) => {
         try {
             // optimize and convert image to webp format
@@ -45,7 +44,6 @@ const uploadImage = (image, name) => {
 
 /** delete image from AWS S3 bucket */
 const deleteImage = (name) => {
-    config()
     return new Promise(async (resolve, reject) => {
         try {
             const params = {

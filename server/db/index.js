@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+// const dotenv = require('dotenv')
+// dotenv.config()
+require('dotenv').config()
+const MONGODB_URI = process.env.MONGODB_URI;
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/express-mongoose";
-
-module.exports = connectDB = async () => {
+async function connectMongoDB(){
     await mongoose.connect(MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
     });
     console.log("MongoDB connected");
 };
+
+module.exports = connectMongoDB;
