@@ -1,19 +1,11 @@
-import dynamic from 'next/dynamic'
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-    HiDotsVertical,
-    HiOutlineHeart,
-    HiOutlineMenu,
-    HiOutlineShoppingBag,
-    HiUser,
-} from "react-icons/hi";
 import { BsHandIndex } from "react-icons/bs";
 import { MdOutlineAttachMoney, MdOutlineHistory } from "react-icons/md";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
+import Menu from './Menu';
 
-const DynamicMenu = dynamic(() => import("./Menu"), {ssr:false,loading: () => "Loading... "});
 
 const menuItems = [
     {
@@ -34,11 +26,6 @@ const menuItems = [
 ];
 
 const userOptions = [
-    // {
-    //     title: "Wishlist",
-    //     url: "/wishlist",
-    //     icon: <HiOutlineHeart size={18} className="text-primary" />,
-    // },
     {
         title: "Buy",
         url: "/buy",
@@ -58,11 +45,8 @@ const userOptions = [
 export default function Navbar() {
     const { pathname } = useRouter();
     const { user } = useContext(UserContext);
-    const [openMenu, setOpenMenu] = useState(false);
     return (
         <>
-            {/* menu  */}
-            {openMenu && <DynamicMenu /> } 
             <header className="z-50 bg-white sticky top-0 grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 shadow-md w-screen">
                 {/* logo  */}
                 <div className="flex">
@@ -109,15 +93,8 @@ export default function Navbar() {
                                     </Link>
                                 ))}
                             </div>
-                            {/* user menu  */}
-                            <div className="">
-                                <button className="flex items-center" onClick={()=>setOpenMenu(!openMenu)}>
-                                    <HiDotsVertical
-                                        size={24}
-                                        className="text-secondary"
-                                    />
-                                </button>
-                            </div>
+                            {/*  menu  */}
+                            <Menu />
                         </div>
                     </>
                 ) : (
