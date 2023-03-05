@@ -23,5 +23,10 @@ router.get('/users',isAdmin,getAllUsers)
 // get all brokers /auth/brokers @access Private (Admin) - GET
 router.get('/brokers',isAdmin,getAllBrokers)
 
+router.post('/logout', (req, res) => {
+    res.clearCookie('accessToken');
+    res.redirect('/');
+});
+
 
 module.exports = router

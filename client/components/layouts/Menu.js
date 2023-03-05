@@ -8,6 +8,7 @@ import {
     HiOutlineUserGroup,
 } from "react-icons/hi";
 import {
+    MdOutlineHistory,
     MdOutlineLogout,
     MdOutlineRealEstateAgent,
     MdOutlineRequestQuote,
@@ -28,7 +29,7 @@ const options = {
         {
             title: "My Requests",
             url: "/my-requests",
-            icon: <MdOutlineRequestQuote size={20} />,
+            icon: <MdOutlineHistory size={20} />,
         },
     ],
     broker: [

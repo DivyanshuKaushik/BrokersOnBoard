@@ -16,10 +16,10 @@ const uploadImage = (image, name) => {
         try {
             // optimize and convert image to webp format
             // fix aspect ratio and blur background image
-            // const optimized_image = await sharp(image).webp().toBuffer();
-            const size = 500;
-            const resizedBuffer = await sharp(image).resize({width:size}).toBuffer()
-            const optimized_image = await sharp(image).resize(size,size,{fit:'cover'}).blur(6).composite([{input:resizedBuffer,gravity:"center"}]).webp().toBuffer()
+            const optimized_image = await sharp(image).webp().toBuffer();
+            // const size = 500;
+            // const resizedBuffer = await sharp(image).resize({width:size}).toBuffer()
+            // const optimized_image = await sharp(image).resize(size,size,{fit:'cover'}).blur(6).composite([{input:resizedBuffer,gravity:"center"}]).webp().toBuffer()
             // image name as webp extension
             const img_name = `${name}.webp`;
             // upload image to s3 bucket

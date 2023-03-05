@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsHandIndex } from "react-icons/bs";
-import { MdOutlineAttachMoney, MdOutlineHistory } from "react-icons/md";
+import { MdOutlineAttachMoney,MdAddCircleOutline } from "react-icons/md";
 import React, { useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
-import Menu from './Menu';
-
+import Menu from "./Menu";
 
 const menuItems = [
     {
@@ -32,14 +31,9 @@ const userOptions = [
         icon: <BsHandIndex size={16} className="text-primary" />,
     },
     {
-        title: "Sell",
+        title: "Rent",
         url: "/sell",
         icon: <MdOutlineAttachMoney size={18} className="text-primary" />,
-    },
-    {
-        title: "Requests",
-        url: "/requests",
-        icon: <MdOutlineHistory size={18} className="text-primary" />,
     },
 ];
 export default function Navbar() {
@@ -79,19 +73,32 @@ export default function Navbar() {
                 {user ? (
                     <>
                         {/* user personels  */}
-                        <div className="flex items-center space-x-4 justify-end lg:justify-center mr-8 lg:mr-0 w-full">
+                        <div className="flex items-center space-x-8 justify-end lg:justify-center mr-8 lg:mr-0 w-full">
                             <div className="hidden lg:flex items-center space-x-4">
-                                {/* wishlist | orders  */}
-                                {userOptions.map(({ title, url, icon }, index) => (
-                                    <Link key={index} href={url}>
+                                {/* options */}
+                                {user.role === "user" ? (
+                                    userOptions.map(
+                                        ({ title, url, icon }, index) => (
+                                            <Link key={index} href={url}>
+                                                <button className="flex items-center text-sm space-x-1">
+                                                    {icon}
+                                                    <span className="text-gray-700">
+                                                        {title}
+                                                    </span>
+                                                </button>
+                                            </Link>
+                                        )
+                                    )
+                                ) : (
+                                    <Link href="/add-new-property">
                                         <button className="flex items-center text-sm space-x-1">
-                                            {icon}
+                                        <MdAddCircleOutline size={20} className="text-primary" />
                                             <span className="text-gray-700">
-                                                {title}
+                                                New Property
                                             </span>
                                         </button>
                                     </Link>
-                                ))}
+                                )}
                             </div>
                             {/*  menu  */}
                             <Menu />
