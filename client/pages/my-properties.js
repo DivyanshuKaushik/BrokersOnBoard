@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 import Private from "../components/layouts/Private";
-import { getProperties } from "../services/property";
+import { getMyProperties, getProperties } from "../services/property";
 import Table from "../components/utils/Table";
 import { HiArrowNarrowLeft, HiOutlineArrowNarrowRight } from "react-icons/hi";
 import PropertyCard from "../components/PropertyCard";
@@ -17,7 +17,6 @@ export default function Properties() {
         city: "",
         state: "",
         pincode: "",
-        broker: user?.role==="broker"?user._id:"",
     });
     const [properties, setProperties] = useState([]);
     const [loading,setLoading] = useState(false);
@@ -25,7 +24,7 @@ export default function Properties() {
     useEffect(() => {
         async function fetchProperties() {
             setLoading(true);
-            const { data, error } = await getProperties(query);
+            const { data, error } = await getMyProperties(query);
             if (error) {
                 alert(error);
             }
@@ -64,7 +63,7 @@ export default function Properties() {
                 {properties.length === 0 && !loading && <h3 className="text-center">No more properties to show</h3>}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {!loading && properties.length>=1 && properties?.map((item) => (
-                        <PropertyCard key={item._id} property={item} />
+                        <PropertyCard key={item._id} property={item} showBroker={false} />
                     ))}
                 </div>
                 {/* button to load new data  */}

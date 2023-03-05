@@ -14,6 +14,7 @@ import {
     MdOutlineRequestQuote,
 } from "react-icons/md";
 import { UserContext } from "../../context/UserProvider";
+import { logout } from "../../services/auth";
 
 const commonOptions = [
     {
@@ -70,7 +71,7 @@ export default function Menu(props) {
 
     const { user } = useContext(UserContext);
 
-    const { pathname } = useRouter();
+    const { pathname,push } = useRouter();
 
     const ref = useRef(null);
 
@@ -91,6 +92,10 @@ export default function Menu(props) {
         };
     }, [onClickOutside]);
 
+    async function logOut(){
+        await logout()
+       window.location.replace("/")
+    }
     return (
         <div className="relative">
             <div className="">
@@ -131,7 +136,7 @@ export default function Menu(props) {
                             </Link>
                         ))}
                         <li className="">
-                            <button className="flex items-center p-2 space-x-4 text-gray-800 group hover:text-primary text-sm whitespace-nowrap transition duration-200 ease-in">
+                            <button onClick={logOut} className="flex items-center p-2 space-x-4 text-gray-800 group hover:text-primary text-sm whitespace-nowrap transition duration-200 ease-in">
                                 <span className="text-secondary mr-3 group-hover:text-primary">
                                     <MdOutlineLogout size={20} />
                                 </span>

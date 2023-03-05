@@ -117,3 +117,7 @@ export async function getAllBrokers() {
     }
     return res;
 }
+export async function logout() {
+    await api.post("/auth/logout");
+    return true;
+}
