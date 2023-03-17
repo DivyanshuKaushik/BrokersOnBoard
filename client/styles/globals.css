@@ -20,6 +20,7 @@ a {
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
 }
 /* Change the white to any color */
 input:-webkit-autofill,

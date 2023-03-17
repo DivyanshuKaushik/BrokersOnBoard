@@ -103,7 +103,7 @@ export default function Menu(props) {
                     className="flex items-center"
                     onClick={() => setOpenMenu(!openMenu)}
                 >
-                    <HiDotsVertical size={24} className="text-secondary" />
+                    <HiDotsVertical size={24} className={pathname==="/" && props.hero ? "text-white": "text-secondary"} />
                 </button>
             </div>
             {openMenu && (

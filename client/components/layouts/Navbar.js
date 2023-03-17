@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsHandIndex } from "react-icons/bs";
-import { MdOutlineAttachMoney,MdAddCircleOutline } from "react-icons/md";
-import React, { useContext } from "react";
+import { MdOutlineAttachMoney, MdAddCircleOutline } from "react-icons/md";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/UserProvider";
 import Menu from "./Menu";
+import useScrollDirection from "../../hooks/useScrollDirection";
 
 const menuItems = [
     {
@@ -27,21 +28,54 @@ const menuItems = [
 const userOptions = [
     {
         title: "Buy",
-        url: "/buy",
+        url: "/services?tab=buy",
         icon: <BsHandIndex size={16} className="text-primary" />,
     },
     {
         title: "Rent",
-        url: "/sell",
+        url: "/services?tab=rent",
         icon: <MdOutlineAttachMoney size={18} className="text-primary" />,
     },
 ];
 export default function Navbar() {
     const { pathname } = useRouter();
     const { user } = useContext(UserContext);
+    const [bg, setBg] = useState("");
+    const [hero, setHero] = useState(true);
+    const navRef = useRef();
+    navRef.current = bg;
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const show = window.scrollY > 400;
+            if (show) {
+                setBg("bg-white shadow-md");
+                setHero(false);
+            } else {
+                setBg("bg-transparent");
+                if (pathname === "/") {
+                    setHero(true);
+                }
+            }
+        };
+        document.addEventListener("scroll", handleScroll);
+        return () => {
+            document.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const scrollDirection = useScrollDirection();
+    const navVisibility = scrollDirection === "down" ? "hidden" : "top-0";
+
     return (
         <>
-            <header className="z-50 bg-white sticky top-0 grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 shadow-md w-screen">
+            <header
+                className={
+                    pathname === "/"
+                        ? `z-50 fixed ${navVisibility} ${bg} grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 w-screen`
+                        : "z-50 sticky top-0 bg-white shadow-md grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 w-screen"
+                }
+            >
                 {/* logo  */}
                 <div className="flex">
                     <Link href="/">
@@ -59,12 +93,14 @@ export default function Navbar() {
                                     <span
                                         className={`${
                                             pathname === url
-                                                ? "text-primary"
+                                                ? "text-primary font-semibold"
+                                                : pathname === "/" && hero
+                                                ? "text-white font-semibold"
                                                 : "text-gray-700"
                                         } hover:text-primary transition duration-200 ease-in-out`}
                                     >
                                         {title}
-                                    </span>{" "}
+                                    </span>
                                 </Link>
                             </li>
                         ))}
@@ -82,7 +118,14 @@ export default function Navbar() {
                                             <Link key={index} href={url}>
                                                 <button className="flex items-center text-sm space-x-1">
                                                     {icon}
-                                                    <span className="text-gray-700">
+                                                    <span
+                                                        className={
+                                                            pathname === "/" &&
+                                                            hero
+                                                                ? "text-white font-semibold hover:text-primary transition duration-200 ease-in"
+                                                                : "text-gray-700"
+                                                        }
+                                                    >
                                                         {title}
                                                     </span>
                                                 </button>
@@ -92,8 +135,17 @@ export default function Navbar() {
                                 ) : (
                                     <Link href="/add-new-property">
                                         <button className="flex items-center text-sm space-x-1">
-                                        <MdAddCircleOutline size={20} className="text-primary" />
-                                            <span className="text-gray-700">
+                                            <MdAddCircleOutline
+                                                size={20}
+                                                className="text-primary"
+                                            />
+                                            <span
+                                                className={
+                                                    pathname === "/" && hero
+                                                        ? "text-white font-semibold hover:text-primary transition duration-200 ease-in"
+                                                        : "text-gray-700"
+                                                }
+                                            >
                                                 New Property
                                             </span>
                                         </button>
@@ -101,7 +153,7 @@ export default function Navbar() {
                                 )}
                             </div>
                             {/*  menu  */}
-                            <Menu />
+                            <Menu hero={hero} />
                         </div>
                     </>
                 ) : (

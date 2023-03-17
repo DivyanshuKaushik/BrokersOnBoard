@@ -5,11 +5,11 @@ export const UserContext = React.createContext();
 
 export default function UserProvider({children}) {
     const [user, setUser] = React.useState(null);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         async function fetchAuthenticatedUser() {
-            setLoading(true);
+            // setLoading(true);
             const { data, error } = await getAuthUser();
             if (error) {
                 setLoading(false);
@@ -20,5 +20,5 @@ export default function UserProvider({children}) {
         }
         fetchAuthenticatedUser();
     }, []);
-    return !loading && <UserContext.Provider value={{user,setUser}}>{children}</UserContext.Provider>;
+    return !loading && <UserContext.Provider value={{user,loading,setUser}}>{children}</UserContext.Provider>;
 }

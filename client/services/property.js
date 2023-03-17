@@ -40,8 +40,8 @@ export async function addNewProperty(property) {
         formData.append("sqft", sqft);
         formData.append("price", price);
         formData.append("address", address);
-        formData.append("city", city);
-        formData.append("state", state);
+        formData.append("city", city.toLowerCase());
+        formData.append("state", state.toLowerCase());
         formData.append("pincode", pincode);
         formData.append("propertyType", propertyType);
         formData.append("requestType", requestType);
@@ -54,6 +54,7 @@ export async function addNewProperty(property) {
             })
         ).data;
     } catch (err) {
+        console.log(err,"api");
         res.error = err;
     }
     return res;
