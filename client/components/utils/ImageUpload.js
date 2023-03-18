@@ -3,7 +3,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 
 export default function ImageUpload({name,handleImage,multiple=false}) {
     return (
-        <div className="flex flex-col space-y-2 w-80 lg:w-[400px] focus:ring-red-500">
+        <div className="flex flex-col space-y-2 w-full focus:ring-red-500">
             <label
                 htmlFor={name}
                 className="capitalize text-sm text-gray-800"

@@ -34,6 +34,7 @@ connectMongoDB();
 app.use('/api/property', require('./routes/property.routes'));
 app.use('/api/request', require('./routes/request.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/contact', require('./routes/contact.routes'));
 
 app.get('/', (req, res) => {
     return res.status(200).json({msg:"Welcome to Brokers On Board API Server"});

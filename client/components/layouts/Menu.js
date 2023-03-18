@@ -10,61 +10,67 @@ import {
 import {
     MdOutlineHistory,
     MdOutlineLogout,
+    MdOutlineMessage,
     MdOutlineRealEstateAgent,
     MdOutlineRequestQuote,
 } from "react-icons/md";
 import { UserContext } from "../../context/UserProvider";
 import { logout } from "../../services/auth";
 
-const commonOptions = [
-    {
-        title: "Profile",
-        url: "/profile",
-        icon: <HiOutlineUserCircle size={20} />,
-    },
-];
+// const commonOptions = [
+//     {
+//         title: "Profile",
+//         url: "/profile",
+//         icon: <HiOutlineUserCircle size={20} />,
+//     },
+// ];
 
-const options = {
-    user: [
-        ...commonOptions,
-        {
-            title: "My Requests",
-            url: "/my-requests",
-            icon: <MdOutlineHistory size={20} />,
-        },
-    ],
-    broker: [
-        ...commonOptions,
-        {
-            title: "My Properties",
-            url: "/my-properties",
-            icon: <HiOutlineHome size={20} />,
-        },
-    ],
-    admin: [
-        ...commonOptions,
-        {
-            title: "Properties",
-            url: "/properties",
-            icon: <HiOutlineHome size={20} />,
-        },
-        {
-            title: "Client Requests",
-            url: "/client-requests",
-            icon: <MdOutlineRequestQuote size={20} />,
-        },
-        {
-            title: "Clients",
-            url: "/clients",
-            icon: <HiOutlineUserGroup size={20} />,
-        },
-        {
-            title: "Brokers",
-            url: "/brokers",
-            icon: <MdOutlineRealEstateAgent size={20} />,
-        },
-    ],
-};
+// const options = {
+//     user: [
+//         ...commonOptions,
+//         {
+//             title: "My Requests",
+//             url: "/my-requests",
+//             icon: <MdOutlineHistory size={20} />,
+//         },
+//     ],
+//     broker: [
+//         ...commonOptions,
+//         {
+//             title: "My Properties",
+//             url: "/my-properties",
+//             icon: <HiOutlineHome size={20} />,
+//         },
+//     ],
+//     admin: [
+//         ...commonOptions,
+//         {
+//             title: "Properties",
+//             url: "/properties",
+//             icon: <HiOutlineHome size={20} />,
+//         },
+//         {
+//             title: "Client Requests",
+//             url: "/client-requests",
+//             icon: <MdOutlineRequestQuote size={20} />,
+//         },
+//         {
+//             title: "Clients",
+//             url: "/clients",
+//             icon: <HiOutlineUserGroup size={20} />,
+//         },
+//         {
+//             title: "Brokers",
+//             url: "/brokers",
+//             icon: <MdOutlineRealEstateAgent size={20} />,
+//         },
+//         {
+//             title: "Messages",
+//             url: "/messages",
+//             icon: <MdOutlineMessage size={20} />,
+//         },
+//     ],
+// };
 
 export default function Menu(props) {
     const [openMenu, setOpenMenu] = useState(false);
@@ -98,7 +104,7 @@ export default function Menu(props) {
     }
     return (
         <div className="relative">
-            <div className="">
+            <div className="hidden lg:block">
                 <button
                     className="flex items-center"
                     onClick={() => setOpenMenu(!openMenu)}
@@ -112,7 +118,7 @@ export default function Menu(props) {
                     className="absolute top-12 right-6 z-40 bg-white p-5 rounded-2xl shadow-md border"
                 >
                     <ul className="flex flex-col space-y-2 w-full">
-                        {options[user.role].map(({ title, icon, url }, i) => (
+                        {props.options[user.role].map(({ title, icon, url }, i) => (
                             <Link key={i} href={url}>
                                 <li
                                     className={`flex items-center p-2 border-b ${

@@ -6,6 +6,21 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/UserProvider";
 import Menu from "./Menu";
 import useScrollDirection from "../../hooks/useScrollDirection";
+import SideMenu from "./SideMenu";
+
+import {
+    HiDotsVertical,
+    HiOutlineHome,
+    HiOutlineUserCircle,
+    HiOutlineUserGroup,
+} from "react-icons/hi";
+import {
+    MdOutlineHistory,
+    MdOutlineLogout,
+    MdOutlineMessage,
+    MdOutlineRealEstateAgent,
+    MdOutlineRequestQuote,
+} from "react-icons/md";
 
 const menuItems = [
     {
@@ -29,14 +44,81 @@ const userOptions = [
     {
         title: "Buy",
         url: "/services?tab=buy",
-        icon: <BsHandIndex size={16} className="text-primary" />,
+        icon: <BsHandIndex size={16} />,
     },
     {
         title: "Rent",
         url: "/services?tab=rent",
-        icon: <MdOutlineAttachMoney size={18} className="text-primary" />,
+        icon: <MdOutlineAttachMoney size={18} />,
     },
 ];
+const brokerOptions = [
+    {
+        title: "Sell",
+        url: "/services?tab=sell",
+        icon: <BsHandIndex size={16} />,
+    },
+    {
+        title: "Rent",
+        url: "/services?tab=rent",
+        icon: <MdOutlineAttachMoney size={18} />,
+    },
+];
+const commonOptions = [
+    {
+        title: "Profile",
+        url: "/profile",
+        icon: <HiOutlineUserCircle size={20} />,
+    },
+];
+
+const options = {
+    user: [
+        ...commonOptions,
+        {
+            title: "My Requests",
+            url: "/my-requests",
+            icon: <MdOutlineHistory size={20} />,
+        },
+    ],
+    broker: [
+        ...commonOptions,
+        {
+            title: "My Properties",
+            url: "/my-properties",
+            icon: <HiOutlineHome size={20} />,
+        },
+    ],
+    admin: [
+        ...commonOptions,
+        {
+            title: "Properties",
+            url: "/properties",
+            icon: <HiOutlineHome size={20} />,
+        },
+        {
+            title: "Client Requests",
+            url: "/client-requests",
+            icon: <MdOutlineRequestQuote size={20} />,
+        },
+        {
+            title: "Clients",
+            url: "/clients",
+            icon: <HiOutlineUserGroup size={20} />,
+        },
+        {
+            title: "Brokers",
+            url: "/brokers",
+            icon: <MdOutlineRealEstateAgent size={20} />,
+        },
+        {
+            title: "Messages",
+            url: "/messages",
+            icon: <MdOutlineMessage size={20} />,
+        },
+    ],
+};
+
 export default function Navbar() {
     const { pathname } = useRouter();
     const { user } = useContext(UserContext);
@@ -67,6 +149,10 @@ export default function Navbar() {
     const scrollDirection = useScrollDirection();
     const navVisibility = scrollDirection === "down" ? "hidden" : "top-0";
 
+    const lgFields = user?.role === "user" ? userOptions : brokerOptions
+
+    const fields = user ? user?.role === "user" ? [...userOptions,...options[user.role]] : [...brokerOptions,...options[user.role]] : [];
+    console.log(fields);
     return (
         <>
             <header
@@ -85,6 +171,7 @@ export default function Navbar() {
                     </Link>
                 </div>
                 {/* options  */}
+                <SideMenu hero={hero} menuItems={[...menuItems,...fields]} />
                 <nav className="hidden lg:block">
                     <ul className="flex space-x-4">
                         {menuItems.map(({ title, url, icon }, index) => (
@@ -112,54 +199,33 @@ export default function Navbar() {
                         <div className="flex items-center space-x-8 justify-end lg:justify-center mr-8 lg:mr-0 w-full">
                             <div className="hidden lg:flex items-center space-x-4">
                                 {/* options */}
-                                {user.role === "user" ? (
-                                    userOptions.map(
-                                        ({ title, url, icon }, index) => (
-                                            <Link key={index} href={url}>
-                                                <button className="flex items-center text-sm space-x-1">
-                                                    {icon}
-                                                    <span
-                                                        className={
-                                                            pathname === "/" &&
-                                                            hero
-                                                                ? "text-white font-semibold hover:text-primary transition duration-200 ease-in"
-                                                                : "text-gray-700"
-                                                        }
-                                                    >
-                                                        {title}
-                                                    </span>
-                                                </button>
-                                            </Link>
-                                        )
+                                {lgFields.map(
+                                    ({ title, url, icon }, index) => (
+                                        <Link key={index} href={url}>
+                                            <button className="flex items-center text-sm space-x-1">
+                                               <span className="text-primary">{icon}</span> 
+                                                <span
+                                                    className={
+                                                        pathname === "/" && hero
+                                                            ? "text-white font-semibold hover:text-primary transition duration-200 ease-in"
+                                                            : "text-gray-700"
+                                                    }
+                                                >
+                                                    {title}
+                                                </span>
+                                            </button>
+                                        </Link>
                                     )
-                                ) : (
-                                    <Link href="/add-new-property">
-                                        <button className="flex items-center text-sm space-x-1">
-                                            <MdAddCircleOutline
-                                                size={20}
-                                                className="text-primary"
-                                            />
-                                            <span
-                                                className={
-                                                    pathname === "/" && hero
-                                                        ? "text-white font-semibold hover:text-primary transition duration-200 ease-in"
-                                                        : "text-gray-700"
-                                                }
-                                            >
-                                                New Property
-                                            </span>
-                                        </button>
-                                    </Link>
                                 )}
                             </div>
                             {/*  menu  */}
-                            <Menu hero={hero} />
+                            <Menu options={options} hero={hero} />
                         </div>
                     </>
                 ) : (
                     <>
                         {/* auth buttons  */}
-                        <div className="flex space-x-4">
+                        <div className="hidden lg:flex space-x-4">
                             <Link href="/signin">
                                 <button className="bg-primary text-white text-xs lg:text-base px-2 lg:px-4 py-1 rounded-sm hover:bg-gray-100 hover:text-gray-800 active:scale-90 transition-all duration-200 ease-in">
                                     Sign In

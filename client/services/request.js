@@ -21,7 +21,7 @@ export async function addNewRequest(request) {
         }
         res.data = (
             await api.post("/request/add", request)
-        ).data;
+        ).data.data;
     } catch (err) {
         res.error = err;
     }

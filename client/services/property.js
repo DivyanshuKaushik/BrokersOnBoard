@@ -34,7 +34,6 @@ export async function addNewProperty(property) {
             throw Error("Please fill all the fields");
         }
         const formData = new FormData();
-
         formData.append("title", title);
         formData.append("description", description);
         formData.append("sqft", sqft);
@@ -45,7 +44,9 @@ export async function addNewProperty(property) {
         formData.append("pincode", pincode);
         formData.append("propertyType", propertyType);
         formData.append("requestType", requestType);
-        formData.append("images", images);
+        [...property.images].forEach(image => {
+            formData.append("images", image);
+        });
         res.data = (
             await api.post("/property/add", formData, {
                 headers: {

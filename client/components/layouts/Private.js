@@ -5,14 +5,14 @@ import Router from 'next/router';
 
 export default function Private({ children, allow }) {
     const { user,loading } = useContext(UserContext);
-    if(loading) return <div>Loading...</div>
     useEffect(()=>{ 
         if (!user && !loading) Router.push('/signin');
         if (!loading && user && allow && !allow.includes(user.role)) {
             Router.push('/signin');
         }
     },[user])
-    return !loading &&  children
+    if(loading) return <div>Loading...</div>
+    return !loading && user &&  children
 }
 
 function AuthModal({ open, setOpen }) {

@@ -22,6 +22,7 @@ import { addNewProperty } from "../services/property";
 import Private from "../components/layouts/Private";
 import { UserContext } from "../context/UserProvider";
 import Input from "../components/utils/Input";
+import { addNewRequest } from "../services/request";
 
 const requestFields = [
     { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City" },
@@ -65,7 +66,7 @@ export default function Services() {
 
     const fields = user?.role === "user" ? requestFields : propertyFields;
 
-    const [data, setData] = useState({
+    const [formData, setFormData] = useState({
         title: "",
         description: "",
         sqft: "",
@@ -80,38 +81,64 @@ export default function Services() {
     });
 
     function handleChange(e) {
-        setData({ ...data, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     function handleImages(e) {
-        setPropertyData({ ...propertyData, images: e.target.files });
+        setFormData({ ...formData, images: e.target.files });
     }
 
     function removeImages(e) {
         e.preventDefault();
-        setPropertyData({ ...propertyData, images: [] });
+        setFormData({ ...formData, images: [] });
     }
 
     async function addProperty(e) {
-        e.preventDefault();
-        const { data, error } = addNewProperty(propertyData);
-        if (error) {
+        const res = await addNewProperty(formData);
+        if (res.error) {
             const err = res.error.response?.data.error || res.error;
             if (!err) return alert("something went wrong");
-            console.log(error, "safasfasd");
             return alert(err);
         }
-        console.log(data);
-        alert(data);
+        alert("Property Added Successfully!");
+    }
+
+    async function addRequest(e) {
+        const res = await addNewRequest(formData);
+        if (res.error) {
+            const err = res.error.response?.formData.error || res.error;
+            if (!err) return alert("something went wrong");
+            return alert(err);
+        }
+        alert("Request Successfull!");
+
     }
 
     async function submit(e) {
         e.preventDefault();
+        if (user?.role === "user") {
+            addRequest(formData);
+        }else {
+            addProperty(formData)
+        }
+        setFormData({
+            title: "",
+            description: "",
+            sqft: "",
+            price: "",
+            address: "",
+            city: "",
+            state: "",
+            pincode: "",
+            propertyType: "",
+            requestType: tab === "sell" ? "sale" : tab,
+            images: "",
+        })
     }
     return (
         <Private allow={["admin", "broker", "user"]}>
             <section className="px-10 lg:px-20 py-4 lg:py-10">
-                <main className="bg-white border rounded-lg shadow-md p-4">
+                <main className="bg-white border rounded-lg shadow-md p-4 lg:px-14">
                     <h3 className="text-3xl text-center font-semibold text-primary capitalize">
                         {tab} Property
                     </h3>
@@ -126,56 +153,61 @@ export default function Services() {
                                     label={label}
                                     icon={icon}
                                     handleChange={handleChange}
-                                    value={data[name]}
+                                    value={formData[name]}
                                 />
                             ))}
                             {/* images */}
-                            {(user.role === "broker" ||
-                                user.role === "admin") &&
-                            data.images.length ? (
-                                <div className="flex flex-col space-y-2 w-80 lg:w-[400px] focus:ring-red-500">
-                                    <label
-                                        htmlFor="images"
-                                        className="capitalize text-sm text-gray-800"
-                                    >
-                                        Images
-                                    </label>
-                                    <div className="flex items-center justify-between w-full">
-                                        <span className="text-primary">
-                                            <MdOutlineFileUpload size={24} />
-                                        </span>
-                                        <div className="flex flex-col">
-                                            {Array.from(
-                                                propertyData.images
-                                            ).map((item, i) => (
-                                                <span
-                                                    className="text-xs"
-                                                    key={i}
-                                                >
-                                                    {item.name}
+                            {(user?.role === "broker" ||
+                                user?.role === "admin") && (
+                                <>
+                                    {formData.images.length ? (
+                                        <div className="flex flex-col space-y-2 w-full focus:ring-red-500">
+                                            <label
+                                                htmlFor="images"
+                                                className="capitalize text-sm text-gray-800"
+                                            >
+                                                Images
+                                            </label>
+                                            <div className="flex items-center justify-between w-full">
+                                                <span className="text-primary">
+                                                    <MdOutlineFileUpload
+                                                        size={24}
+                                                    />
                                                 </span>
-                                            ))}
+                                                <div className="flex flex-col">
+                                                    {Array.from(
+                                                        formData.images
+                                                    ).map((item, i) => (
+                                                        <span
+                                                            className="text-xs"
+                                                            key={i}
+                                                        >
+                                                            {item.name}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                                <button
+                                                    onClick={removeImages}
+                                                    className=""
+                                                >
+                                                    <MdRemoveCircleOutline
+                                                        size={24}
+                                                        className="text-primary"
+                                                    />
+                                                </button>
+                                            </div>
                                         </div>
-                                        <button
-                                            onClick={removeImages}
-                                            className=""
-                                        >
-                                            <MdRemoveCircleOutline
-                                                size={24}
-                                                className="text-primary"
-                                            />
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <ImageUpload
-                                    name={"images"}
-                                    handleImage={handleImages}
-                                    multiple
-                                />
+                                    ) : (
+                                        <ImageUpload
+                                            name={"images"}
+                                            handleImage={handleImages}
+                                            multiple
+                                        />
+                                    )}
+                                </>
                             )}
                             {/* propertyType*/}
-                            <div className="flex flex-col space-y-2 lg:w-[400px] focus:ring-red-500">
+                            <div className="flex flex-col space-y-2 w-full focus:ring-red-500">
                                 <label
                                     htmlFor="propertyType"
                                     className="capitalize text-sm text-gray-800"
@@ -188,8 +220,8 @@ export default function Services() {
                                     </span>
                                     <SelectInput
                                         name="propertyType"
-                                        data={data}
-                                        setData={setData}
+                                        data={formData}
+                                        setData={setFormData}
                                         options={propertyOptions}
                                     />
                                 </div>
