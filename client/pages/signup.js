@@ -21,9 +21,7 @@ const fields = [
 
 export default function SignUp() {
     const router = useRouter();
-
-    // state for user | broker registration
-    const [broker, setBroker] = useState(false);
+    const {as} = router.query;
 
     // form data state
     const [userData, setUserData] = useState({
@@ -47,7 +45,7 @@ export default function SignUp() {
     const signup = async (e) => {
         e.preventDefault();
         let res;
-        if (broker) {
+        if (as==="broker") {
             res = await brokerSignUp(userData);
         } else {
             res = await userSignUp(userData);
@@ -115,7 +113,7 @@ export default function SignUp() {
                             </div>
                         </div>
                     ))}
-                    {broker && (
+                    {as==="broker" && (
                         <div className="w-full">
                             <label
                                 htmlFor="visitingCard"
@@ -157,15 +155,17 @@ export default function SignUp() {
                         <p className="">Already have an account? Sign Up</p>
                     </Link>
                     {/* register as broker or client  */}
-                    <button className="" onClick={() => setBroker(!broker)}>
-                        <p className="">
-                            <strong>
-                                {broker
-                                    ? "Register as Client?"
-                                    : "Register as Broker?"}
-                            </strong>{" "}
-                        </p>
-                    </button>
+                    <Link href={`/signup?as=${as==="broker" ? "user":"broker"}`}>
+                        <button className="">
+                            <p className="">
+                                <strong>
+                                    {as==="broker"
+                                        ? "Register as User?"
+                                        : "Register as Broker?"}
+                                </strong>
+                            </p>
+                        </button>
+                    </Link>
                 </div>
             </div>
         </main>
