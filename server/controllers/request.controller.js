@@ -2,14 +2,15 @@ const Request = require("../models/request.model");
 
 async function addNewRequest(req,res){
     try{
-        const {address,city,state,pincode,requestType,propertyType} = req.body;
-        if(!(city && state && requestType && propertyType)){
+        const {name,phone,address,city,state,pincode,requestType,propertyType} = req.body;
+        if(!(name && phone && city && state && requestType && propertyType)){
             return res.status(400).json({error:"Please fill all the fields"});
         }
-        const request = new Request({...req.body,user:req.user._id});
+        const request = new Request(req.body);
         await request.save();
         return res.status(200).json({msg:"Request added successfully"});
     }catch(err){
+        console.log(err);
         return res.status(500).json({error:"Internal server error"});
     }
 }
@@ -73,7 +74,7 @@ async function getRequestsByFilter(req,res){
                 delete query[key];
             }
         }); 
-        const data = await Request.find(query).sort({updatedAt:-1}).skip((page-1)*limit).limit(limit).populate("user","-password -__v -createdAt -updatedAt").select("-__v -createdAt -updatedAt");
+        const data = await Request.find(query).sort({updatedAt:-1}).skip((page-1)*limit).limit(limit).select("-__v -createdAt -updatedAt");
         return res.status(200).json({data});
     }catch(err){
         console.log(err);

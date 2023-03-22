@@ -16,7 +16,7 @@ export default function RegisterSection() {
             <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-4 place-content-center place-items-center rounded-lg">
                 {/* btns */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                            <Link  href="/signup?as=broker">
+                            <Link  href="/register?as=broker">
                                 <div className="flex flex-col justify-center w-full items-center bg-white p-10 lg:py-8 lg:px-10 shadow-md border rounded-md transform hover:-translate-y-2 hover:shadow-xl hover:shadow-red-100  transition-all duration-200 ease-in">
                                     <Image
                                         src="/assets/broker.png"
@@ -30,7 +30,7 @@ export default function RegisterSection() {
                                     </span>
                                 </div>
                             </Link>
-                            <Link  href="/signup?as=user">
+                            <Link  href="/register?as=builder">
                                 <div className="flex flex-col justify-center w-full items-center bg-white p-10 lg:py-8 lg:px-10 shadow-md border rounded-md transform hover:-translate-y-2 hover:shadow-xl hover:shadow-red-100 transition-all duration-200 ease-in">
                                     <Image
                                         src="/assets/user.png"
@@ -40,7 +40,7 @@ export default function RegisterSection() {
                                         alt="user"
                                     />
                                     <span className=" text-secondary mt-2 whitespace-nowrap">
-                                        Register as a User
+                                        Register as a Builder
                                     </span>
                                 </div>
                             </Link>

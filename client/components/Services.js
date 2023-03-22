@@ -4,18 +4,18 @@ import React, { useContext } from "react";
 import { UserContext } from "../context/UserProvider";
 
 const btns = [
-    { name: "Buy", img: "/assets/buy.png", url: "/services?tab=buy" },
-    { name: "Sell", img: "/assets/sell.png", url: "/services?tab=sell" },
-    { name: "Rent", img: "/assets/rent.png", url: "/services?tab=rent" },
+    { name: "Buy", img: "/assets/buy.png", url: "/services/buy" },
+    { name: "Sell", img: "/assets/sell.png", url: "/services/new" },
+    { name: "Rent", img: "/assets/rent.png", url: "/services/rent" },
 ];
 
 const Services = () => {
-    const { user } = useContext(UserContext);
+    // const { user } = useContext(UserContext);
     return (
         <section id="services" className="px-8 lg:px-20 py-10 lg:py-12">
             <div className="bg-slate-50 p-6 grid grid-cols-1 lg:grid-cols-2 gap-4 place-content-center place-items-center rounded-lg">
                 {/* image  */}
-                <div className="text-secondary flex flex-col justify-start text-justify">
+                <div className="text-secondary flex flex-col items-center lg:items-start text-justify mb-6">
                     <h3 className="text-2xl lg:text-4xl mb-2">
                         Take the first step
                     </h3>
@@ -32,14 +32,14 @@ const Services = () => {
                     </div>
                 </div>
                 {/* btns */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 gap-y-6 w-full">
                     {btns.map((btn) => {
-                        if (user?.role === "user" && btn.name === "Sell") {
+                        {/* if (user?.role === "user" && btn.name === "Sell") {
                             return null;
                         }
                         if (user?.role === "broker" && btn.name === "Buy") {
                             return null;
-                        }
+                        } */}
                         return (
                             <Link key={btn.name} href={btn.url}>
                                 <div className="flex flex-col justify-center w-full items-center bg-white p-10 lg:py-8 lg:px-10 shadow-md border rounded-md transform hover:-translate-y-2 hover:shadow-xl transition-all duration-200 ease-in">

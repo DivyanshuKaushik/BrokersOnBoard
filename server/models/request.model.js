@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true,
+        trim: true,
+    },
+    phone:{
+        type: String,
+        required: true,
+        trim: true,
+    },
     address: {
         type: String,
         trim: true,
@@ -27,10 +37,10 @@ const requestSchema = new mongoose.Schema({
         enum: ["buy","rent"],
         default: "buy",
     },
-    user:{
-        type:mongoose.Types.ObjectId,
-        ref:"User"
-    }
+    // user:{
+    //     type:mongoose.Types.ObjectId,
+    //     ref:"User"
+    // }
 },{timestamps:true});
 
 const Request = mongoose.model("Request", requestSchema);

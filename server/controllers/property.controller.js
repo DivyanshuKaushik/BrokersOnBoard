@@ -9,8 +9,8 @@ const generateId = () => {
 
 async function addNewProperty(req, res) {
   try {
-    const { title,description, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
-    if (!title || !description || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
+    const { title,name,phone, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
+    if (!name || !title || !phone || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
       return res.status(400).json({ error: "Please fill all the fields" });
     }
     if(req.files.length === 0){
@@ -21,7 +21,7 @@ async function addNewProperty(req, res) {
         const img_url = await uploadImage(file.buffer, img_name);
         return img_url;
     }))
-    const property = new Property({...req.body,broker:req.user._id,images});
+    const property = new Property({...req.body,images});
     await property.save();
     res.status(200).json({ msg: "Property added successfully" });
   } catch (err) {
@@ -32,8 +32,8 @@ async function addNewProperty(req, res) {
 async function updateProperty(req,res){
     try{
         const {id} = req.params;
-        const {title,description, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
-        if (!title || !description || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
+        const {name,phone, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
+        if (!name || !phone || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
             return res.status(400).json({ error: "Please fill all the fields" });
         }
         const property = await Property.findById(id);
@@ -48,8 +48,8 @@ async function updateProperty(req,res){
         //     }))
         //     property.images = images;
         // }
-        property.title = title;
-        property.description = description;
+        property.name = name;
+        property.phone = phone;
         property.sqft = sqft;
         property.price = price;
         property.address = address;
@@ -91,7 +91,7 @@ async function getAllProperties(req,res){
         let {page,limit} = req.query;
         page = parseInt(page);
         limit = parseInt(limit);
-        const properties = await Property.find().sort({updatedAt:-1}).skip((page-1)*limit).limit(limit).populate("broker");
+        const properties = await Property.find().sort({updatedAt:-1}).skip((page-1)*limit).limit(limit);
         return res.status(200).json({data:properties});
     }catch(err){
         res.status(500).json({error:"Internal server error"});
@@ -137,7 +137,7 @@ async function getPropertiesByFilter(req,res){
                 delete query[key];
             }
         });  
-        const data = await Property.find(query).sort({updatedAt:-1}).skip((page-1)*limit).limit(limit).populate("broker","-password -createdAt -updatedAt -__v").select("-__v -createdAt -updatedAt");
+        const data = await Property.find(query).sort({updatedAt:-1}).skip((page-1)*limit).limit(limit).select("-__v -createdAt -updatedAt");
         return res.status(200).json({data});
     }catch(err){
         res.status(500).json({error:"Internal server error"});

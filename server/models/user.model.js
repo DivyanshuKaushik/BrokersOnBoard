@@ -15,9 +15,10 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
-        unique: true,
+        default: "",
+        // unique: true,
     },
     phone: {
         type: String,
@@ -26,7 +27,8 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
+        default: "BrokersonBoard@admin",
         trim: true,
     },
     visitingCard:{

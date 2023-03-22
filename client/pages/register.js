@@ -13,10 +13,10 @@ import { brokerSignUp, userSignUp } from "../services/auth";
 const fields = [
     { name: "firstName", icon: <HiOutlineUser size={24} /> },
     { name: "lastName", icon: <HiOutlineUser size={24} /> },
-    { name: "email", icon: <MdOutlineMail size={24} /> },
+    // { name: "email", icon: <MdOutlineMail size={24} /> },
     { name: "phone", icon: <MdOutlinePhone size={24} /> },
-    { name: "password", icon: <MdLockOutline size={24} /> },
-    { name: "confirmPassword", icon: <MdLockOutline size={24} /> },
+    // { name: "password", icon: <MdLockOutline size={24} /> },
+    // { name: "confirmPassword", icon: <MdLockOutline size={24} /> },
 ];
 
 export default function SignUp() {
@@ -28,6 +28,7 @@ export default function SignUp() {
         firstName: "",
         lastName: "",
         email: "",
+        phone: "",
         password: "",
         confirmPassword: "",
         visitingCard: "",
@@ -56,7 +57,17 @@ export default function SignUp() {
             if (!err) return alert("something went wrong");
             return alert(err);
         } else {
-            router.push("/signin");
+            // router.push("/signin");
+            alert("Response received");
+            setUserData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                password: "",
+                confirmPassword: "",
+                visitingCard: "",
+            });
         }
     };
     return (
@@ -145,22 +156,22 @@ export default function SignUp() {
                             className="bg-primary active:bg-red-400 text-white py-2 px-4 rounded-md w-1/2"
                             type="submit"
                         >
-                            Sign Up
+                            Submit
                         </button>
                     </div>
                 </form>
                 <div className="flex items-center justify-around text-sm text-secondary my-6">
                     {/* signin  */}
-                    <Link href="/signin">
+                    {/* <Link href="/signin">
                         <p className="">Already have an account? Sign Up</p>
-                    </Link>
+                    </Link> */}
                     {/* register as broker or client  */}
-                    <Link href={`/signup?as=${as==="broker" ? "user":"broker"}`}>
+                    <Link href={`/register?as=${as==="broker" ? "builder":"broker"}`}>
                         <button className="">
                             <p className="">
                                 <strong>
                                     {as==="broker"
-                                        ? "Register as User?"
+                                        ? "Register as Builder?"
                                         : "Register as Broker?"}
                                 </strong>
                             </p>

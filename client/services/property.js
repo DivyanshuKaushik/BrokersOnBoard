@@ -4,6 +4,8 @@ export async function addNewProperty(property) {
     let res = {};
     try {
         const {
+            name,
+            phone,
             title,
             description,
             sqft,
@@ -18,8 +20,9 @@ export async function addNewProperty(property) {
         } = property;
         if (
             !(
+                name &&
+                phone &&
                 title &&
-                description &&
                 sqft &&
                 price &&
                 address &&
@@ -34,8 +37,10 @@ export async function addNewProperty(property) {
             throw Error("Please fill all the fields");
         }
         const formData = new FormData();
+        formData.append("name", name);
+        formData.append("phone", phone);
         formData.append("title", title);
-        formData.append("description", description);
+        formData.append("description", description ? description : "");
         formData.append("sqft", sqft);
         formData.append("price", price);
         formData.append("address", address);
@@ -55,7 +60,6 @@ export async function addNewProperty(property) {
             })
         ).data;
     } catch (err) {
-        console.log(err,"api");
         res.error = err;
     }
     return res;
@@ -65,8 +69,8 @@ export async function updateProperty(id,property){
     let res = {};
     try {
         const {
-            title,
-            description,
+            name,
+            phone,
             sqft,
             price,
             address,
@@ -78,8 +82,8 @@ export async function updateProperty(id,property){
         } = property;
         if (
             !(
-                title &&
-                description &&
+                name &&
+                phone &&
                 sqft &&
                 price &&
                 address &&

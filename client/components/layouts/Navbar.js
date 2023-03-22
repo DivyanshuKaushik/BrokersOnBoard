@@ -102,8 +102,8 @@ const options = {
             icon: <MdOutlineRequestQuote size={20} />,
         },
         {
-            title: "Clients",
-            url: "/clients",
+            title: "Builders",
+            url: "/builders",
             icon: <HiOutlineUserGroup size={20} />,
         },
         {
@@ -149,17 +149,17 @@ export default function Navbar() {
     const scrollDirection = useScrollDirection();
     const navVisibility = scrollDirection === "down" ? "hidden" : "top-0";
 
-    const lgFields = user?.role === "user" ? userOptions : brokerOptions
+    // const lgFields = user?.role === "user" ? userOptions : brokerOptions
 
     const fields = user ? user?.role === "user" ? [...userOptions,...options[user.role]] : [...brokerOptions,...options[user.role]] : [];
-    console.log(fields);
+
     return (
         <>
             <header
                 className={
                     pathname === "/"
-                        ? `z-50 fixed ${navVisibility} ${bg} grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 w-screen`
-                        : "z-50 sticky top-0 bg-white shadow-md grid grid-cols-2 lg:grid-cols-3 place-content-center place-items-center py-3 w-screen"
+                        ? `z-50 fixed ${navVisibility} ${bg} grid grid-cols-2 place-content-center place-items-center py-3 w-screen`
+                        : "z-50 sticky top-0 bg-white shadow-md grid grid-cols-2 place-content-center place-items-center py-3 w-screen"
                 }
             >
                 {/* logo  */}
@@ -172,8 +172,8 @@ export default function Navbar() {
                 </div>
                 {/* options  */}
                 <SideMenu hero={hero} menuItems={[...menuItems,...fields]} />
-                <nav className="hidden lg:block">
-                    <ul className="flex space-x-4">
+                <nav className="flex items-center space-x-6">
+                    <ul className="hidden lg:flex space-x-4">
                         {menuItems.map(({ title, url, icon }, index) => (
                             <li key={index} className="">
                                 <Link href={url}>
@@ -192,13 +192,15 @@ export default function Navbar() {
                             </li>
                         ))}
                     </ul>
+                    {user && 
+                    <Menu options={options} hero={hero} />
+                    }
                 </nav>
-                {user ? (
-                    <>
+                {/* {user ? (
+                    <> */}
                         {/* user personels  */}
-                        <div className="flex items-center space-x-8 justify-end lg:justify-center mr-8 lg:mr-0 w-full">
-                            <div className="hidden lg:flex items-center space-x-4">
-                                {/* options */}
+                        {/* <div className="flex items-center space-x-8 justify-end lg:justify-center mr-8 lg:mr-0 w-full"> */}
+                            {/* <div className="hidden lg:flex items-center space-x-4">
                                 {lgFields.map(
                                     ({ title, url, icon }, index) => (
                                         <Link key={index} href={url}>
@@ -217,15 +219,15 @@ export default function Navbar() {
                                         </Link>
                                     )
                                 )}
-                            </div>
+                            </div> */}
                             {/*  menu  */}
-                            <Menu options={options} hero={hero} />
-                        </div>
+                            {/* <Menu options={options} hero={hero} /> */}
+                        {/* </div>
                     </>
                 ) : (
-                    <>
+                    <> */}
                         {/* auth buttons  */}
-                        <div className="hidden lg:flex space-x-4">
+                        {/* <div className="hidden lg:flex space-x-4">
                             <Link href="/signin">
                                 <button className="bg-primary text-white text-xs lg:text-base px-2 lg:px-4 py-1 rounded-sm hover:bg-gray-100 hover:text-gray-800 active:scale-90 transition-all duration-200 ease-in">
                                     Sign In
@@ -236,9 +238,9 @@ export default function Navbar() {
                                     Sign Up
                                 </button>
                             </Link>
-                        </div>
-                    </>
-                )}
+                        </div> */}
+                    {/* </>
+                )} */}
             </header>
         </>
     );

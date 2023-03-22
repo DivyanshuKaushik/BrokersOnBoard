@@ -63,7 +63,7 @@ export default function SideMenu({ hero = true, menuItems }) {
                                 </li>
                             </Link>
                         ))}
-                        {user ? (
+                        {user && (
                             <li className="">
                                 <button
                                     onClick={logOut}
@@ -75,7 +75,8 @@ export default function SideMenu({ hero = true, menuItems }) {
                                     Logout
                                 </button>
                             </li>
-                        ) : (
+                        )}
+                        {/* ) : (
                             <ul className="flex flex-col space-y-2 mt-2">
                                 <li className="w-full" onClick={() => setOpen(false)}>
                                     <Link href="/signin">
@@ -92,7 +93,7 @@ export default function SideMenu({ hero = true, menuItems }) {
                                     </Link>
                                 </li>
                             </ul>
-                        )}
+                        )} */}
                     </ul>
                 </div>
             </Drawer>

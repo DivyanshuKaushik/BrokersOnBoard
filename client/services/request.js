@@ -8,13 +8,17 @@ export async function addNewRequest(request) {
             state,
             requestType,
             propertyType,
+            name,
+            phone,
         } = request;
         if (
             !(
                 city &&
                 state &&
                 requestType &&
-                propertyType
+                propertyType &&
+                name &&
+                phone
             )
         ) {
             throw Error("Please fill all the fields");

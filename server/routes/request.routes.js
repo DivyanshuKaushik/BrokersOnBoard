@@ -4,7 +4,8 @@ const { isUser, isAdmin } = require('../middlewares/auth.middleware');
 const router = require('express').Router();
 /** user routes - start */
 // add new (buy | rent) request /request/add @access Private (User) - POST
-router.post('/add',isUser,addNewRequest);
+router.post('/add',addNewRequest);
+
 // update request /request/update/:id @access Private (User) - PUT
 router.put('/update/:id',isUser,updateRequest);
 // delete request /request/delete/:id @access Private (User) - DELETE

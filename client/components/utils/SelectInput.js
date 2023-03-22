@@ -6,6 +6,7 @@ const SelectInput = ({ name, data, setData, options }) => {
             id={name}
             className="bg-transparent text-sm rounded-lg outline-none w-full p-2.5 cursor-pointer"
             onChange={(e) => setData({ ...data, [name]: e.target.value })}
+            defaultValue={data[name]}
         >
             <option defaultValue className="capitalize w-full">
                 Select {name.toLowerCase().split("type")[0]} type

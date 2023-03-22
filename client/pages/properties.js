@@ -17,7 +17,7 @@ export default function Properties() {
         city: "",
         state: "",
         pincode: "",
-        broker: user?.role==="broker"?user._id:"",
+        // broker: user?.role==="broker"?user._id:"",
     });
     const [properties, setProperties] = useState([]);
     const [loading,setLoading] = useState(false);

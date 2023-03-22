@@ -31,6 +31,11 @@ export async function contact(contact) {
 export async function getContacts(query){
     let res = {};
     try {
+        Array.from(Object.keys(query)).forEach(key => {
+            if(query[key] === ""){
+                delete query[key];
+            }
+        });
         res.data = (
             await api.get(`/contact`,{params:query})
         ).data.data;

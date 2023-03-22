@@ -5,8 +5,16 @@ import { BiRupee } from "react-icons/bi";
 import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import Link from "next/link";
 
-export default function PropertyCard({ property,showBroker=true }) {
+export default function PropertyCard({
+    property,
+    showBroker = true,
+    contact = true,
+    inquire = false,
+    formData,
+    setFormData,
+}) {
     const {
         title,
         description,
@@ -19,7 +27,8 @@ export default function PropertyCard({ property,showBroker=true }) {
         propertyType,
         requestType,
         sqft,
-        broker,
+        name,
+        phone,
     } = property;
 
     const fullAddress = `${address}, ${city}, ${state}, ${pincode}`;
@@ -68,9 +77,11 @@ export default function PropertyCard({ property,showBroker=true }) {
                         <h1 className="text-lg font-semibold text-gray-800 capitalize">
                             {title}
                         </h1>
-                        <p className="capitalize text-justify text-sm font-light text-gray-700">
-                            {description}
-                        </p>
+                        {description && (
+                            <p className="capitalize text-justify text-sm font-light text-gray-700">
+                                {description}
+                            </p>
+                        )}
                         <p className="flex capitalize text-gray-900 text-sm">
                             <MdOutlineLocationOn
                                 size={20}
@@ -82,37 +93,62 @@ export default function PropertyCard({ property,showBroker=true }) {
                             <BiRupee size={20} className="text-gray-800" />{" "}
                             {price}
                         </p>
-                        {broker && <>
-
-                            <hr className="" />
-                            {/* contact details */}
-                            <div className="pt-2 space-y-2">
-                                <div className="flex items-center space-x-2 text-xs">
-                                    <span className="">
-                                        <HiOutlineUser size={18} />
-                                    </span>
-                                    <span className="">{`${broker.firstName} ${broker.lastName}`}</span>
-                                </div>
-                                <div className="flex items-center space-x-2 text-xs">
-                                    <span className="">
-                                        <HiOutlinePhone size={18} />
-                                    </span>
-                                    <span className="">{broker.phone}</span>
-                                </div>
-                                <div className="flex items-center space-x-2 text-xs">
+                        {contact && (
+                            <>
+                                <hr className="" />
+                                {/* contact details */}
+                                <div className="pt-2 space-y-2">
+                                    <div className="flex items-center space-x-2 text-xs">
+                                        <span className="">
+                                            <HiOutlineUser size={18} />
+                                        </span>
+                                        <span className="">{name}</span>
+                                        {/* <span className="">{`${broker.firstName} ${broker.lastName}`}</span> */}
+                                    </div>
+                                    <div className="flex items-center space-x-2 text-xs">
+                                        <span className="">
+                                            <HiOutlinePhone size={18} />
+                                        </span>
+                                        <span className="">{phone}</span>
+                                    </div>
+                                    {/* <div className="flex items-center space-x-2 text-xs">
                                     <span className="">
                                         <HiOutlineMail size={18} />
                                     </span>
                                     <span className="">{broker.email}</span>
+                                </div> */}
                                 </div>
-                            </div>
-                        </>}
+                            </>
+                        )}
                         <button
                             className="text-xs w-full text-center text-primary"
                             onClick={() => setShowImages(true)}
                         >
                             Show Images
                         </button>
+                        {inquire && (
+                            <div className="flex justify-end">
+                                {/* <Link href={`/services/rent?city=${city}&address=${address}&state=${state}&pincode=${pincode}&propertyType=${propertyType}`}> */}
+                                <button
+                                    onClick={() =>
+                                        setFormData({
+                                            ...formData,
+                                            address: address ? address : "",
+                                            city: city ? city : "",
+                                            state: state ? state : "",
+                                            pincode: pincode ? pincode : "",
+                                            propertyType: propertyType
+                                                ? propertyType
+                                                : "",
+                                        })
+                                    }
+                                    className="mt-2 px-4 py-2 text-xs text-white bg-primary rounded-md"
+                                >
+                                    Inquire
+                                </button>
+                                {/* </Link> */}
+                            </div>
+                        )}
                     </div>
                 </>
             )}

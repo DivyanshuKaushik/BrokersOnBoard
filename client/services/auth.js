@@ -14,20 +14,20 @@ export async function userSignUp(user) {
     let res = {};
     try {
         const { firstName, lastName, email,phone, password, confirmPassword } = user;
-        if (!(firstName && lastName && email && phone && password && confirmPassword)) {
+        if (!(firstName && lastName  && phone)) {
 
             throw Error("Please fill all the fields");
         }
-        if (user.password !== user.confirmPassword) {
-            throw Error("Passwords do not match");
-        }
+        // if (user.password !== user.confirmPassword) {
+        //     throw Error("Passwords do not match");
+        // }
         res.data = (
             await api.post("/auth/user/signup", {
                 firstName,
                 lastName,
                 phone,
-                email,
-                password,
+                // email,
+                // password,
             })
         ).data;
     } catch (err) {
@@ -52,18 +52,18 @@ export async function brokerSignUp(broker) {
             !(
                 firstName &&
                 lastName &&
-                email &&
+                // email &&
                 phone &&
-                password &&
-                confirmPassword &&
+                // password &&
+                // confirmPassword &&
                 visitingCard
             )
         ) {
             throw Error("Please fill all the fields");
         }
-        if (broker.password !== broker.confirmPassword) {
-            throw Error("Passwords do not match");
-        }
+        // if (broker.password !== broker.confirmPassword) {
+        //     throw Error("Passwords do not match");
+        // }
         const formData = new FormData();
 
         formData.append("visitingCard", visitingCard);
@@ -96,10 +96,15 @@ export async function getAuthUser() {
     return res;
 }
 
-export async function getAllUsers() {
+export async function getAllUsers(query) {
     let res = {};
     try{
-        res.data = (await api.get("/auth/users")).data.data;
+        Array.from(Object.keys(query)).forEach(key => {
+            if(query[key] === ""){
+                delete query[key];
+            }
+        });
+        res.data = (await api.get("/auth/users",{params:query})).data.data;
     }
     catch(err){
         res.error = err;
@@ -107,10 +112,15 @@ export async function getAllUsers() {
     return res;
 }
 
-export async function getAllBrokers() {
+export async function getAllBrokers(query) {
     let res = {};
     try{
-        res.data = (await api.get("/auth/brokers")).data.data;
+        Array.from(Object.keys(query)).forEach(key => {
+            if(query[key] === ""){
+                delete query[key];
+            }
+        });
+        res.data = (await api.get("/auth/brokers",{params:query})).data.data;
     }
     catch(err){
         res.error = err;

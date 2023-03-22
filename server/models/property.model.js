@@ -1,14 +1,23 @@
 const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
-    title: {
+    name:{
         type: String,
         required: true,
         trim: true,
     },
-    description: {
+    phone:{
         type: String,
         required: true,
+        trim: true,
+    },
+    title:{
+        type: String,
+        required: true,
+        trim: true,
+    },
+    description:{
+        type: String,
         trim: true,
     },
     sqft:{
@@ -54,10 +63,10 @@ const propertySchema = new mongoose.Schema({
         enum: ["sale","rent"],
         default: "sale",
     },
-    broker:{
-        type: mongoose.Types.ObjectId,
-        ref:'User'
-    }
+    // broker:{
+    //     type: mongoose.Types.ObjectId,
+    //     ref:'User'
+    // }
 },{timestamps:true});
 
 

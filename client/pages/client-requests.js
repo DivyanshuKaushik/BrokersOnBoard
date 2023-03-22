@@ -4,9 +4,11 @@ import Spinner from "../components/utils/Spinner";
 import Table from "../components/utils/Table";
 import { UserContext } from "../context/UserProvider";
 import { getRequests } from "../services/request";
+import { HiArrowNarrowLeft, HiOutlineArrowNarrowRight } from "react-icons/hi";
 
-export default function requests() {
-    const { user } = useContext(UserContext);
+
+export default function Requests() {
+    // const { user } = useContext(UserContext);
     const [query, setQuery] = useState({
         page: 1,
         limit: 12,
@@ -15,10 +17,11 @@ export default function requests() {
         city: "",
         state: "",
         pincode: "",
-        user: user?.role==="user"?user._id:"",
+        // user: user?.role==="user"?user._id:"",
     });
     const [requests,setRequests] = useState([])
     const [loading,setLoading] = useState(false)
+    
     useEffect(() => {
         async function fetchRequests() {
             setLoading(true);
@@ -34,13 +37,15 @@ export default function requests() {
     }, [query]);
 
     const table_keys = [
+        "name",
+        "phone",
         "address",
         "city",
         "state",
         "pincode",
         "requestType",
         "propertyType",
-        "user"
+        // "user"
     ];
 
     const next = () => {
@@ -59,6 +64,26 @@ export default function requests() {
                 </h1>
                 {loading && <Spinner />}
                 {!loading && requests && <Table keys={table_keys} data={requests} />}
+                {/* button to load new data  */}
+                <div className="flex items-center justify-center space-x-6">
+                    <button
+                        disabled={query.page <= 1}
+                        onClick={prev}
+                        className="bg-red-400 disabled:bg-gray-100 disabled:text-gray-300 text-white hover:bg-gray-100 hover:text-gray-700 transition duration-200 ease-in px-4 py-2 rounded"
+                    >
+                        <HiArrowNarrowLeft size={20} />
+                    </button>
+                    <button
+                        disabled={
+                            requests?.length === 0 ||
+                            requests?.length < query.limit
+                        }
+                        onClick={next}
+                        className="bg-red-400 disabled:bg-gray-100 disabled:text-gray-300 text-white hover:bg-gray-100 hover:text-gray-700 transition duration-200 ease-in px-4 py-2 rounded"
+                    >
+                        <HiOutlineArrowNarrowRight size={20} />
+                    </button>
+                </div>
             </main>
         </Private>
     );

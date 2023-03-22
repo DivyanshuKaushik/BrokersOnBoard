@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Private from "../components/layouts/Private";
 import Spinner from "../components/utils/Spinner";
 import Table from "../components/utils/Table";
@@ -6,8 +6,9 @@ import { getContacts } from "../services/contact";
 import { HiArrowNarrowLeft, HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 export default function Messages() {
-    const [messages,setMessages] = useState([])
-    const [loading,setLoading] = useState(false)
+    const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const [query, setQuery] = useState({
         page: 1,
         limit: 12,
@@ -20,31 +21,31 @@ export default function Messages() {
     const prev = () => {
         setQuery({ ...query, page: query.page - 1 });
     };
-    useEffect(()=>{
-        async function fetchMessages(){
-            setLoading(true)
-            const {data,error} = await getContacts()
-            if(error){
-                alert(error)
+    useEffect(() => {
+        async function fetchMessages() {
+            setLoading(true);
+            const { data, error } = await getContacts(query);
+            if (error) {
+                alert(error);
             }
-            setMessages(data)
-            setLoading(false)
+            setMessages(data);
+            setLoading(false);
         }
-        fetchMessages()
-    },[query])
+        fetchMessages();
+    }, [query]);
 
-    const table_keys = ["name","email","phone","message"]
+    const table_keys = ["name", "email", "phone", "message"];
 
     return (
         <Private allow={["admin"]}>
             <main className="px-10 lg:px-20 py-10 space-y-6 bg-gray-50">
-                <h1 className="text-xl lg:text-3xl text-gray-800">
-                    Messages
-                </h1>
+                <h1 className="text-xl lg:text-3xl text-gray-800">Messages</h1>
                 {loading && <Spinner />}
-                {!loading && messages && <Table keys={table_keys} data={messages} />}
-                 {/* button to load new data  */}
-                 <div className="flex items-center justify-center space-x-6">
+                {!loading && messages && (
+                    <Table keys={table_keys} data={messages} />
+                )}
+                {/* button to load new data  */}
+                <div className="flex items-center justify-center space-x-6">
                     <button
                         disabled={query.page <= 1}
                         onClick={prev}
