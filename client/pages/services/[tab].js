@@ -33,6 +33,8 @@ import Link from "next/link";
 import PropertyCard from "../../components/PropertyCard";
 import Spinner from "../../components/utils/Spinner";
 
+import { DefaultError, OnError, Success } from "../../alerts";
+
 const commonFields = [
     { name: "name", icon: <HiOutlineUser size={24} />, label: "Name" },
     { name: "phone", icon: <HiOutlinePhone size={24} />, label: "Phone" },
@@ -55,12 +57,12 @@ const requestFields = [
 
 const propertyFields = [
     ...commonFields,
-    { name: "title", icon: <MdOutlineTitle size={24} />, label: "Title" },
-    {
-        name: "description",
-        icon: <MdOutlineDescription size={24} />,
-        label: "Description (Optional)",
-    },
+    // { name: "title", icon: <MdOutlineTitle size={24} />, label: "Title" },
+    // {
+    //     name: "description",
+    //     icon: <MdOutlineDescription size={24} />,
+    //     label: "Description (Optional)",
+    // },
     { name: "sqft", icon: <TbRuler size={24} />, label: "Sqft" },
     { name: "price", icon: <MdOutlineAttachMoney size={24} />, label: "Price" },
     { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City" },
@@ -78,6 +80,21 @@ const propertyFields = [
 ];
 
 const propertyOptions = ["home", "bunglow", "land"];
+
+const buyPriceRanges = [
+    "5-10 Lakhs",
+    "10-20 Lakhs",
+    "20-50 Lakhs",
+    "50-99 Lakhs",
+    "99+ Lakhs",
+];
+const rentPriceRanges = [
+    "5-10 Thousands",
+    "10-20 Thousands",
+    "20-50 Thousands",
+    "50-99 Thousands",
+    "99+ Thousands",
+];
 
 export default function Services() {
     const router = useRouter();
@@ -101,7 +118,9 @@ export default function Services() {
             setLoading(true);
             const { data, error } = await getProperties(query);
             if (error) {
-                alert(error);
+                const err = error.response?.data.error || error;
+                if (!err) return DefaultError();
+                return OnError(err);
             }
             setProperties(data);
             setLoading(false);
@@ -114,8 +133,8 @@ export default function Services() {
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
-        title: "",
-        description: "",
+        // title: "",
+        // description: "",
         sqft: "",
         price: "",
         address: "",
@@ -123,7 +142,8 @@ export default function Services() {
         state: "",
         pincode: "",
         propertyType: "",
-        property: "",
+        priceRange: "",
+        // property: "",
         requestType: tab,
         // requestType: tab === "sell" ? "sale" : tab,
         images: "",
@@ -157,20 +177,20 @@ export default function Services() {
         const res = await addNewProperty(formData);
         if (res.error) {
             const err = res.error.response?.data.error || res.error;
-            if (!err) return alert("something went wrong");
-            return alert(err);
+            if (!err) return DefaultError();
+            return OnError(err);
         }
-        alert("Property Added Successfully!");
+        Success()
     }
 
     async function addRequest(e) {
         const res = await addNewRequest(formData);
         if (res.error) {
-            const err = res.error.response?.formData.error || res.error;
-            if (!err) return alert("something went wrong");
-            return alert(err);
+            const err = res.error.response?.data.error || res.error;
+            if (!err) return DefaultError();
+            return OnError(err);
         }
-        alert("Request Successfull!");
+        Success()
     }
 
     async function submit(e) {
@@ -253,6 +273,31 @@ export default function Services() {
                                 value={formData[name]}
                             />
                         ))}
+                        {tab !== "new" && (
+                            <div className="flex flex-col space-y-2 w-full focus:ring-red-500">
+                                <label
+                                    htmlFor="priceRange"
+                                    className="capitalize text-sm text-gray-800"
+                                >
+                                    Budget
+                                </label>
+                                <div className="flex items-center space-x-2 border rounded-md pl-2 w-80 lg:w-full">
+                                    <span className="text-primary">
+                                        <HiOutlineSelector size={24} />
+                                    </span>
+                                    <SelectInput
+                                        name="priceRange"
+                                        data={formData}
+                                        setData={setFormData}
+                                        options={
+                                            tab === "rent"
+                                                ? rentPriceRanges
+                                                : buyPriceRanges
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        )}
                         {/* images */}
                         {tab === "new" && (
                             <>

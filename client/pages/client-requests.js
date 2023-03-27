@@ -45,6 +45,7 @@ export default function Requests() {
         "pincode",
         "requestType",
         "propertyType",
+        "priceRange",
         // "user"
     ];
 

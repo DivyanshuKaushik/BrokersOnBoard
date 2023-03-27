@@ -10,6 +10,7 @@ export async function addNewRequest(request) {
             propertyType,
             name,
             phone,
+            priceRange,
         } = request;
         if (
             !(
@@ -18,7 +19,8 @@ export async function addNewRequest(request) {
                 requestType &&
                 propertyType &&
                 name &&
-                phone
+                phone &&
+                priceRange
             )
         ) {
             throw Error("Please fill all the fields");

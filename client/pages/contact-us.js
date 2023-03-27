@@ -1,9 +1,10 @@
 import Image from "next/image";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
 import { MdOutlineMessage } from "react-icons/md";
 import Input from "../components/utils/Input";
 import { contact } from "../services/contact";
+import { DefaultError, OnError, Success } from "../alerts";
 
 const fields = [
     { name: "name", icon: <HiOutlineUser size={24} />, type: "text" },
@@ -28,16 +29,16 @@ export default function ContactUs() {
         const res = await contact(formData);
         if (res.error) {
             const err = res.error.response?.data.error || res.error;
-            if (!err) return alert("something went wrong");
-            return alert(err);
+            if (!err) return DefaultError();
+            return OnError(err);
         }
-        alert("Message Sent Successfully");
         setFormData({
             name: "",
             email: "",
             phone: "",
             message: "",
         });
+        Success();
     }
 
     return (
@@ -45,13 +46,20 @@ export default function ContactUs() {
             <main className="bg-white border rounded-lg shadow-md p-4 grid grid-cols-1 lg:grid-cols-2">
                 {/* contact us image  */}
                 <div className="relative">
-                <h3 className="block lg:hidden text-primary text-center text-xl">Contact Us</h3>
+                    <h3 className="block lg:hidden text-primary text-center text-xl">
+                        Contact Us
+                    </h3>
                     <Image src="/assets/contact.png" width={500} height={500} />
                 </div>
                 {/* contact us form  */}
                 <div className="">
-                    <h3 className="hidden lg:block text-primary text-center text-xl">Contact Us</h3>
-                    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 w-full">
+                    <h3 className="hidden lg:block text-primary text-center text-xl">
+                        Contact Us
+                    </h3>
+                    <form
+                        onSubmit={handleSubmit}
+                        className="grid grid-cols-1 gap-3 w-full"
+                    >
                         {fields.map(({ name, icon, type }) =>
                             type === "textbox" ? (
                                 <Input

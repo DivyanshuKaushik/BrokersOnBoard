@@ -2,8 +2,8 @@ const Request = require("../models/request.model");
 
 async function addNewRequest(req,res){
     try{
-        const {name,phone,address,city,state,pincode,requestType,propertyType} = req.body;
-        if(!(name && phone && city && state && requestType && propertyType)){
+        const {name,phone,address,city,state,pincode,priceRange,requestType,propertyType} = req.body;
+        if(!(name && phone && city && state && priceRange && requestType && propertyType)){
             return res.status(400).json({error:"Please fill all the fields"});
         }
         const request = new Request(req.body);

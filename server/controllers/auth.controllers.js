@@ -23,6 +23,7 @@ async function userSignUp(req,res){
         return res.status(201).json({message:"User created successfully"});
 
     }catch(err){
+        console.log(err);
         return res.status(500).json({error:"Internal server error"});
     }
 }

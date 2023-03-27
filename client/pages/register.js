@@ -8,6 +8,7 @@ import {
     MdOutlineMail,
     MdOutlinePhone,
 } from "react-icons/md";
+import { DefaultError, OnError, Success } from "../alerts";
 import { brokerSignUp, userSignUp } from "../services/auth";
 
 const fields = [
@@ -54,11 +55,9 @@ export default function SignUp() {
 
         if (res.error) {
             const err = res.error.response?.data.error || res.error;
-            if (!err) return alert("something went wrong");
-            return alert(err);
+            if (!err) return DefaultError();
+            return OnError(err);
         } else {
-            // router.push("/signin");
-            alert("Response received");
             setUserData({
                 firstName: "",
                 lastName: "",
@@ -68,6 +67,7 @@ export default function SignUp() {
                 confirmPassword: "",
                 visitingCard: "",
             });
+            Success()
         }
     };
     return (

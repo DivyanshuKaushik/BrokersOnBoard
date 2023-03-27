@@ -28,6 +28,11 @@ const requestSchema = new mongoose.Schema({
     pincode:{
         type:Number,
     },
+    priceRange:{
+        type: String,
+        trim: true,
+        required: true,
+    },
     propertyType:{
         type: String,
         default: "land",

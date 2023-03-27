@@ -16,8 +16,8 @@ export default function PropertyCard({
     setFormData,
 }) {
     const {
-        title,
-        description,
+        // title,
+        // description,
         images,
         price,
         city,
@@ -74,14 +74,14 @@ export default function PropertyCard({
                             <span className="capitalize">{propertyType}</span>
                             <span className="capitalize">sqft : {sqft}</span>
                         </div>
-                        <h1 className="text-lg font-semibold text-gray-800 capitalize">
+                        {/* <h1 className="text-lg font-semibold text-gray-800 capitalize">
                             {title}
                         </h1>
                         {description && (
                             <p className="capitalize text-justify text-sm font-light text-gray-700">
                                 {description}
                             </p>
-                        )}
+                        )} */}
                         <p className="flex capitalize text-gray-900 text-sm">
                             <MdOutlineLocationOn
                                 size={20}

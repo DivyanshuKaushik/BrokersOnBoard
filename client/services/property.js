@@ -6,8 +6,8 @@ export async function addNewProperty(property) {
         const {
             name,
             phone,
-            title,
-            description,
+            // title,
+            // description,
             sqft,
             price,
             address,
@@ -22,7 +22,7 @@ export async function addNewProperty(property) {
             !(
                 name &&
                 phone &&
-                title &&
+                // title &&
                 sqft &&
                 price &&
                 address &&
@@ -39,8 +39,8 @@ export async function addNewProperty(property) {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("phone", phone);
-        formData.append("title", title);
-        formData.append("description", description ? description : "");
+        // formData.append("title", title);
+        // formData.append("description", description ? description : "");
         formData.append("sqft", sqft);
         formData.append("price", price);
         formData.append("address", address);

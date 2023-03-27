@@ -13,32 +13,11 @@ export default function AboutUs() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
                 {/* about us texts  */}
                 <div className="p-4 text-gray-800 space-y-4">
-                    <p className="font-semibold">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Optio, facere. Quibusdam, excepturi quo est ad nobis
+                    <p className="font-semibold text-lg lg:text-xl text-primary">
+                        Brokers On Board
                     </p>
-                    <p className="text-sm">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Optio, facere. Quibusdam, excepturi quo est ad nobis
-                        voluptatum architecto laudantium modi dignissimos
-                        voluptatem placeat maxime.
-                    </p>
-                    <p className="text-sm">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Inventore, ipsam? Voluptas itaque iusto rerum magnam hic
-                        voluptate animi ducimus atque, inventore, delectus et
-                        dolorum dicta ea quis illum nisi neque aperiam
-                        accusantium explicabo eum cum rem reiciendis ab porro.
-                        Repudiandae et alias ipsam quaerat eum veniam labore
-                        quas aperiam recusandae dolorem, minima cum reiciendis,
-                        quo voluptas facilis veritatis ipsum? Non corrupti
-                        architecto, ea quibusdam culpa aliquid doloremque
-                        dolorem voluptates magni possimus commodi dicta
-                        doloribus nulla odit. Cumque dolorem similique
-                        voluptates natus, explicabo porro tenetur quod nesciunt
-                        quaerat accusamus laudantium. Tempore voluptas
-                        praesentium delectus cumque aspernatur dicta autem
-                        placeat. Provident, soluta.
+                    <p className="text-sm leading-loose text-justify">
+                    The first ever single click platform generated for wide spread real estate ,brokers in the country to help them increase the value with feasible resources saving the time and energy. It will help buyers and sellers to connect with the right broker at the time of need which will help them to generate more income out of there property investment and also it will increase more investment opportunities in different cities.We are creating a digital platform for the property dealer/brokers which will help them to expand their business with minimal use of time, efforts, with more effectively.The idea of employment generation is to create opportunities for people to grow in terms of technical and marketing skill.It will also help the end user to reduce the data exploitation,that is avoiding unnecessary contact and fraudulent activity.
                     </p>
                 </div>
                 {/* image  */}

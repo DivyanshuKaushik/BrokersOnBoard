@@ -9,8 +9,8 @@ const generateId = () => {
 
 async function addNewProperty(req, res) {
   try {
-    const { title,name,phone, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
-    if (!name || !title || !phone || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
+    const { name,phone, sqft, price, address, city, state, pincode, propertyType, requestType } = req.body;
+    if (!name || !phone || !sqft || !price || !address || !city || !state || !pincode || !propertyType || !requestType) {
       return res.status(400).json({ error: "Please fill all the fields" });
     }
     if(req.files.length === 0){

@@ -15,9 +15,9 @@ const quickLinks = [
 
 const contact = [
     { data: "info@brokeronboard.com", icon: <HiOutlinePhone size={20} /> },
-    { data: "Bilaspur CG India", icon: <MdOutlineLocationOn size={20} /> },
-    { data: "Mon - Fri 9:00 - 18:00", icon: <MdAccessTime size={20} /> },
-    { data: "+91 1234567890", icon: <HiOutlinePhone size={20} /> },
+    { data: "Raipur, Chhattisgarh, India", icon: <MdOutlineLocationOn size={20} /> },
+    { data: "Mon to Fri ( 10 AM - 8 PM )", icon: <MdAccessTime size={20} /> },
+    { data: "+91 8959796969", icon: <HiOutlinePhone size={20} /> },
 ];
 
 const socials = [

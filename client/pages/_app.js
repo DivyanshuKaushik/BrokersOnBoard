@@ -6,6 +6,9 @@ import Router from "next/router";
 import ProgressBar from "@badrap/bar-of-progress";
 import PaginationProvider from "../context/PaginationProvider";
 
+// sweetalert css 
+import 'sweetalert2/src/sweetalert2.scss'
+
 const progress = new ProgressBar({
     size: 4,
     color: "#FF5A5F",
