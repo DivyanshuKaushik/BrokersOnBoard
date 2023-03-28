@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MdLockOutline, MdOutlineMail } from "react-icons/md";
+import { DefaultError, OnError } from "../alerts";
 import { login } from "../services/auth";
 
 const fields = [
@@ -27,8 +28,8 @@ export default function SignIn() {
         const res = await login(userData.email, userData.password);
         if (res.error) {
             const err = res.error.response?.data.error;
-            if (!err) return alert("something went wrong");
-            return alert(err);
+            if (!err) return DefaultError();
+            return OnError(err);
         }
         window.location.replace("/");
     };
