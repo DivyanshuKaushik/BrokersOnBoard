@@ -83,6 +83,7 @@ export default function ContactUs() {
                                 />
                             )
                         )}
+                        {/* send btn  */}
                         <button
                             type="submit"
                             className="bg-primary text-white font-semibold py-2 rounded-lg mt-4"
