@@ -4,9 +4,10 @@ const nextConfig = {
   swcMinify: true,
   env:{
     BOB_API_URI: process.env.BOB_API_URI,
+    IMAGE_DOMAIN: process.env.IMAGE_DOMAIN,
   },
   images:{
-    domains:["stateflix-bucket.s3.ap-south-1.amazonaws.com"]
+    domains:["stateflix-bucket.s3.ap-south-1.amazonaws.com","localhost","brokersonboard.com","www.brokersonboard.com"]
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if

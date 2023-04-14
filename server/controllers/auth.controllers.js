@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const validator = require("validator");
 const { uploadImage } = require("../utils/s3");
+const { uploadImageToDisk } = require("../utils/image");
 
 async function userSignUp(req,res){
     try{
@@ -45,11 +46,12 @@ async function brokerSignUp(req,res){
         const saved = await newUser.save();
         if(req.file){
             // return res.status(422).json({error:"Please upload a visiting card"});
-            const img_name = `visitingCards/${saved._id}`;
-            const img_url = await uploadImage(
-                req.file?.buffer,
-                img_name
-            );
+            // const img_name = `visitingCards/${saved._id}`;
+            // const img_url = await uploadImage(
+            //     req.file?.buffer,
+            //     img_name
+            // );
+            const img_url = await uploadImageToDisk(req.file,"users");
             await User.findByIdAndUpdate(saved._id,{visitingCard:img_url});
         }
         return res.status(201).json({message:"User created successfully"});

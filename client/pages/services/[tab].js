@@ -46,7 +46,7 @@ const requestFields = [
     {
         name: "address",
         icon: <FaRegAddressCard size={24} />,
-        label: "Address (Optional)",
+        label: "Address of Property (Optional)",
     },
     {
         name: "pincode",
@@ -226,7 +226,7 @@ export default function Services() {
                             Properties
                         </h1>
                         <Link href="/services/new">
-                            <button className="bg-primary py-2 px-6 mb-2 text-xs rounded-md text-white hover:bg-slate-100 hover:text-gray-700 transition duration-200 ease-in active:scale-75">
+                            <button className="bg-primary py-2 px-6 mb-2 text-xs rounded-md text-white hover:bg-purple-100 hover:text-gray-700 transition duration-200 ease-in active:scale-75">
                                 Rent Your Property
                             </button>
                         </Link>
@@ -259,6 +259,7 @@ export default function Services() {
                 <h3 className="text-3xl text-center font-semibold text-primary capitalize">
                     {tab === "new" ? "Sell or Rent New" : tab} Property
                 </h3>
+                <center className="my-2 text-xs text-secondary">*Note : Please fill the location of the property you wish to buy,sell or rent in the city and address field</center>
                 <hr className="w-2/3 mx-auto mt-4" />
 
                 <form onSubmit={submit} className="">

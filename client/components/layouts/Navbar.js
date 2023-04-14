@@ -21,6 +21,7 @@ import {
     MdOutlineRealEstateAgent,
     MdOutlineRequestQuote,
 } from "react-icons/md";
+import Image from "next/image";
 
 const menuItems = [
     {
@@ -159,15 +160,16 @@ export default function Navbar() {
                 className={
                     pathname === "/"
                         ? `z-50 fixed ${navVisibility} ${bg} grid grid-cols-2 place-content-center place-items-center py-3 w-screen`
-                        : "z-50 sticky top-0 bg-white shadow-md grid grid-cols-2 place-content-center place-items-center py-3 w-screen"
+                        : "z-50 sticky top-0 shadow-md grid grid-cols-2 place-content-center place-items-center py-3 w-screen"
                 }
             >
                 {/* logo  */}
                 <div className="flex">
                     <Link href="/">
-                        <h1 className="text-primary text-lg lg:text-2xl font-semibold">
+                        {/* <h1 className="text-primary text-lg lg:text-2xl font-semibold">
                             Brokers On Board
-                        </h1>
+                        </h1> */}
+                        <Image src="/assets/logo.png" width={150} height={10} />
                     </Link>
                 </div>
                 {/* options  */}

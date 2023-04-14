@@ -28,18 +28,13 @@ const socials = [
 export default function Footer() {
     return (
         <footer className="w-screen">
-            <div className="bg-slate-700 px-10 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:justify-items-center gap-4 py-4 lg:py-10">
+            <div className="bg-purple-700 px-10 lg:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:justify-items-center gap-4 py-4 lg:py-10">
                 <div className="">
-                    <h3 className="text-white text-xl font-semibold my-4">
-                        Brokers On Board
-                    </h3>
-                    <p className="text-slate-400 text-justify text-xs leading-6">
-                        We’re reimagining how you buy, sell and rent. It’s now
-                        easier to get into a place you love. So let’s do this,
-                        together. Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Dolor quibusdam nam nisi possimus,
-                        unde harum ab voluptates fuga nihil eos, adipisci sit
-                        officia doloribus. Quisquam, quod. Quisquam, quod.
+                    <div className="">
+                        <Image src="/assets/logo_light.png" width={300} height={50} />
+                    </div>
+                    <p className="text-white text-justify text-sm leading-6">
+                    The first ever single click platform generated for wide spread real estate ,brokers in the country to help them increase the value with feasible resources saving the time and energy.
                     </p>
                 </div>
                 {/* <div className="">
@@ -62,7 +57,7 @@ export default function Footer() {
                         {contact.map(({ data, icon }, index) => (
                             <li
                                 key={index}
-                                className="flex space-x-2 items-center text-slate-400"
+                                className="flex space-x-2 items-center text-white"
                             >
                                 <span className="">{icon}</span>{" "}
                                 <span className="text-sm">{data}</span>
@@ -74,19 +69,19 @@ export default function Footer() {
                     <h3 className="text-white font-semibold my-4">Follow Us</h3>
                     <ul className="flex space-x-4">
                         {socials.map((link, index) => (
-                            <li key={index} className="text-slate-400">
+                            <li key={index} className="text-white">
                                 <Link href="/">{link}</Link>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
-            <div className="bg-slate-800 px-10 py-8 flex items-center justify-center space-x-4 flex-wrap">
-                <div className="relative h-32 w-full lg:w-96">
+            <div className="bg-purple-700 px-10 py-8 flex items-center justify-center space-x-4 flex-wrap">
+                {/* <div className="relative h-32 w-full lg:w-96">
                     <Image src="/assets/footer-art.png" fill alt="footer" />
-                </div>
-                <h3 className="text-slate-400 text-center mt-4 lg:mt-0">
-                    © 2023 by Brokers On Board. All rights reserved.
+                </div> */}
+                <h3 className="text-white text-center mt-4 font-semibold lg:mt-0">
+                    © {new Date().getFullYear()} by Brokers On Board. All rights reserved. Developed by Tecxhos
                 </h3>
             </div>
         </footer>

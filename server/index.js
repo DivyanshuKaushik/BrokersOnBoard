@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectMongoDB = require('./db');
@@ -14,9 +15,12 @@ app.use(express.urlencoded({ extended: true }))
 // parse cookies 
 app.use(cookieParser())
 
+// express static for images 
+app.use("/uploads",express.static(path.join(__dirname, 'uploads')));
+
 /**  cors configuration  */
 const corsOptions = {
-    origin:["http://localhost:3000","https://brokers-on-board.vercel.app"],
+    origin:["http://localhost:3000","https://brokers-on-board.vercel.app","https://brokersonboard.com"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionsSuccessStatus: 200,
     credentials:true,

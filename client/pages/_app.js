@@ -11,7 +11,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 const progress = new ProgressBar({
     size: 4,
-    color: "#FF5A5F",
+    color: "#FF7D03",
     className: "z-50",
     delay: 100,
 });

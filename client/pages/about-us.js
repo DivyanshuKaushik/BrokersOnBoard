@@ -7,7 +7,7 @@ export default function AboutUs() {
         <section id="about-us" className="py-8 px-8 lg:px-20">
             <div className="">
                 <h2 className="text-3xl text-[#404040] font-bold text-center">
-                    Our Mission Is To FindHouse
+                    Where Deals Got Done
                 </h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">

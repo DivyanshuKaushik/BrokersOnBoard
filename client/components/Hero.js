@@ -18,7 +18,7 @@ export default function Hero() {
                            Welcome to Brokers On Board
                         </h1>
                         <h3 className="text-white text-lg md:text-xl lg:text-2xl opacity-95">
-                           One Stop Real Estate Services
+                        Where Deals Got Done
                         </h3>
                         <p className="text-white text-sm md:text-lg lg:text-lg">
                            Buy, Sell or Rent your property with us

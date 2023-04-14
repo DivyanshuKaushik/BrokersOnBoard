@@ -34,7 +34,6 @@ export default function PropertyCard({
     const fullAddress = `${address}, ${city}, ${state}, ${pincode}`;
 
     const [showImages, setShowImages] = useState(false);
-
     return (
         <div
             className="shadow-md rounded-lg border p-4 bg-white"
@@ -54,7 +53,7 @@ export default function PropertyCard({
                         >
                             {images.map((image, i) => (
                                 <div key={i}>
-                                    <img src={image} alt="property" />
+                                    <img src={process.env.IMAGE_DOMAIN+image} alt="property" />
                                 </div>
                             ))}
                         </Carousel>
