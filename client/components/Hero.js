@@ -7,20 +7,20 @@ export default function Hero() {
     return (
         <section className="relative h-[400px] md:[600px] lg:h-screen w-screen top-0">
             {/* <div className=""> */}
-                {/* <Image src={banner} fill className="brightness-75" /> */}
-                <video src="/assets/hero.mp4" autoPlay loop muted className="object-cover h-full w-full" >
+                <Image src="/assets/banner.jpg" fill className="brightness-75" />
+                {/* <video src="/assets/hero.mp4" autoPlay loop muted className="object-cover h-full w-full" >
 
+                </video> */}
                 {/* <source src="/video/ocean.mp4" type="video/mp4"/> */}
-                </video>
                 <div className="absolute bottom-[20%] md:bottom-[30%] lg:bottom-[40%] text-center w-full space-y-3">
                     <div className="flex flex-col items-center justify-center space-y-4">
-                        <h1 className="text-white text-2xl md:text-3xl lg:text-6xl opacity-90 font-semibold">
+                        <h1 className="text-white text-2xl md:text-3xl lg:text-6xl opacity-90 font-bold">
                            Welcome to Brokers On Board
                         </h1>
-                        <h3 className="text-white text-lg md:text-xl lg:text-2xl opacity-95">
+                        <h3 className="text-white text-lg md:text-xl font-semibold lg:text-2xl opacity-95">
                         Where Deals Got Done
                         </h3>
-                        <p className="text-white text-sm md:text-lg lg:text-lg">
+                        <p className="text-white text-sm md:text-lg font-semibold opacity-80 lg:text-lg">
                            Buy, Sell or Rent your property with us
                         </p>
                     </div>
