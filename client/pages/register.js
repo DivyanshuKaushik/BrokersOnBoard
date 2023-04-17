@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { HiOutlineUser } from "react-icons/hi";
+import Head from "next/head";
 import {
     MdLockOutline,
     MdOutlineFileUpload,
@@ -10,6 +11,7 @@ import {
 } from "react-icons/md";
 import { DefaultError, OnError, Success } from "../alerts";
 import { brokerSignUp, userSignUp } from "../services/auth";
+import Image from "next/image";
 
 const fields = [
     { name: "firstName", icon: <HiOutlineUser size={24} /> },
@@ -71,15 +73,26 @@ export default function SignUp() {
         }
     };
     return (
+        <>
+             <Head> 
+                <title>Brokers On Board | Register - Best Real State Services</title>
+             </Head>
         <main className="flex justify-center items-center p-4 lg:m-8">
             <div className="border shadow-md rounded-md p-4 lg:p-8">
                 {/* logo  */}
-                <h1 className="text-primary text-2xl font-semibold text-center">
+                {/* <h1 className="text-primary text-2xl font-semibold text-center">
                     Brokers On Board
-                </h1>
+                </h1> */}
+                <div className="flex justify-center mb-4">
+                <Image src="/assets/logo.png" width={200} height={20} />
+
+                </div>
                 <h3 className="text-sm text-center text-secondary mt-2">
                     Welcome, Please create a account to explore our services
                 </h3>
+                <center className="text-primary text-xl font-semibold capitalize my-2">
+                    {as} Registration
+                </center>
                 {/* login form  */}
                 <form
                     className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-4 place-items-center place-content-center"
@@ -180,5 +193,6 @@ export default function SignUp() {
                 </div>
             </div>
         </main>
+        </>
     );
 }

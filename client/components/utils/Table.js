@@ -25,7 +25,7 @@ export default function Table({ keys, data }) {
                                 {keys.map((key, i) => {
                                     switch (key) {
                                         case "visitingCard":
-                                            return (
+                                            return item[key] && (
                                                 <td className="">
                                                     <Link
                                                         href={item[key]}

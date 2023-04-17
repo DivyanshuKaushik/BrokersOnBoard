@@ -4,6 +4,7 @@ import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
 import { MdOutlineMessage } from "react-icons/md";
 import Input from "../components/utils/Input";
 import { contact } from "../services/contact";
+import Head from "next/head";
 import { DefaultError, OnError, Success } from "../alerts";
 
 const fields = [
@@ -42,57 +43,68 @@ export default function ContactUs() {
     }
 
     return (
-        <section className="px-6 lg:px-20 py-4 lg:py-10">
-            <main className="bg-white border rounded-lg shadow-md p-4 grid grid-cols-1 lg:grid-cols-2">
-                {/* contact us image  */}
-                <div className="relative">
-                    <h3 className="block lg:hidden text-primary text-center text-xl">
-                        Contact Us
-                    </h3>
-                    <Image src="/assets/contact.png" width={500} height={500} />
-                </div>
-                {/* contact us form  */}
-                <div className="">
-                    <h3 className="hidden lg:block text-primary text-center text-xl">
-                        Contact Us
-                    </h3>
-                    <form
-                        onSubmit={handleSubmit}
-                        className="grid grid-cols-1 gap-3 w-full"
-                    >
-                        {fields.map(({ name, icon, type }) =>
-                            type === "textbox" ? (
-                                <Input
-                                    key={name}
-                                    name={name}
-                                    icon={icon}
-                                    type={type}
-                                    value={formData[name]}
-                                    textbox
-                                    row={4}
-                                    handleChange={handleChange}
-                                />
-                            ) : (
-                                <Input
-                                    key={name}
-                                    name={name}
-                                    icon={icon}
-                                    type={type}
-                                    value={formData[name]}
-                                    handleChange={handleChange}
-                                />
-                            )
-                        )}
-                        {/* send btn  */}
-                        <button
-                            type="submit"
-                            className="bg-primary text-white font-semibold py-2 rounded-lg mt-4"
+        <>
+            <Head>
+                <title>
+                    Brokers On Board | Contact Us - Best Real State Services
+                </title>
+            </Head>
+            <section className="px-6 lg:px-20 py-4 lg:py-10">
+                <main className="bg-white border rounded-lg shadow-md p-4 grid grid-cols-1 lg:grid-cols-2">
+                    {/* contact us image  */}
+                    <div className="relative">
+                        <h3 className="block lg:hidden text-primary text-center text-xl">
+                            Contact Us
+                        </h3>
+                        <Image
+                            src="/assets/contact.png"
+                            width={500}
+                            height={500}
+                        />
+                    </div>
+                    {/* contact us form  */}
+                    <div className="">
+                        <h3 className="hidden lg:block text-primary text-center text-xl">
+                            Contact Us
+                        </h3>
+                        <form
+                            onSubmit={handleSubmit}
+                            className="grid grid-cols-1 gap-3 w-full"
                         >
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </main>
-        </section>
+                            {fields.map(({ name, icon, type }) =>
+                                type === "textbox" ? (
+                                    <Input
+                                        key={name}
+                                        name={name}
+                                        icon={icon}
+                                        type={type}
+                                        value={formData[name]}
+                                        textbox
+                                        row={4}
+                                        handleChange={handleChange}
+                                    />
+                                ) : (
+                                    <Input
+                                        key={name}
+                                        name={name}
+                                        icon={icon}
+                                        type={type}
+                                        value={formData[name]}
+                                        handleChange={handleChange}
+                                    />
+                                )
+                            )}
+                            {/* send btn  */}
+                            <button
+                                type="submit"
+                                className="bg-primary text-white font-semibold py-2 rounded-lg mt-4"
+                            >
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </main>
+            </section>
+        </>
     );
 }

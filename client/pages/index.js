@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Link from "next/link";
@@ -8,6 +9,9 @@ import BrokersCarousel from "../components/BrokersCarousel";
 export default function Home() {
     return (
         <>
+            <Head> 
+                <title>Brokers On Board | Home - Best Real State Services</title>
+             </Head>
             <Hero />
             <main className="w-screen">
                 {/* services  */}

@@ -1,6 +1,7 @@
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import UserProvider from "../context/UserProvider";
+import Head from "next/head";
 import "../styles/globals.css";
 import Router from "next/router";
 import ProgressBar from "@badrap/bar-of-progress";
@@ -22,11 +23,18 @@ Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps }) {
     return (
-        <UserProvider>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
-        </UserProvider>
+        <>
+             <Head> 
+                <title>Brokers On Board | Home - Best Real State Services</title>
+                {/* favicon */}
+                <link rel="icon" href="/favicon.ico" />
+             </Head>
+            <UserProvider>
+                <Navbar />
+                <Component {...pageProps} />
+                <Footer />
+            </UserProvider>
+        </>
     );
 }
 

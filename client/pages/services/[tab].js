@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import {
     HiOutlinePhone,
     HiOutlineSelector,
@@ -37,12 +38,12 @@ import { DefaultError, OnError, Success } from "../../alerts";
 
 const commonFields = [
     { name: "name", icon: <HiOutlineUser size={24} />, label: "Name" },
-    { name: "phone", icon: <HiOutlinePhone size={24} />, label: "Phone" },
+    { name: "phone", icon: <HiOutlinePhone size={24} />, label: "Phone (+91)" },
 ];
 const requestFields = [
     ...commonFields,
-    { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City" },
-    { name: "state", icon: <TbBuilding size={24} />, label: "State" },
+    { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City of Property" },
+    { name: "state", icon: <TbBuilding size={24} />, label: "State of Property" },
     {
         name: "address",
         icon: <FaRegAddressCard size={24} />,
@@ -51,7 +52,7 @@ const requestFields = [
     {
         name: "pincode",
         icon: <MdOutlineLocationOn size={24} />,
-        label: "Pincode (Optional)",
+        label: "Pincode of Property (Optional)",
     },
 ];
 
@@ -65,17 +66,17 @@ const propertyFields = [
     // },
     { name: "sqft", icon: <TbRuler size={24} />, label: "Sqft" },
     { name: "price", icon: <MdOutlineAttachMoney size={24} />, label: "Price" },
-    { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City" },
-    { name: "state", icon: <TbBuilding size={24} />, label: "State" },
+    { name: "city", icon: <MdOutlineLocationCity size={24} />, label: "City of Property" },
+    { name: "state", icon: <TbBuilding size={24} />, label: "State of Property" },
     {
         name: "address",
         icon: <FaRegAddressCard size={24} />,
-        label: "Address",
+        label: "Address of Property",
     },
     {
         name: "pincode",
         icon: <MdOutlineLocationOn size={24} />,
-        label: "Pincode",
+        label: "Pincode of Property",
     },
 ];
 
@@ -218,6 +219,12 @@ export default function Services() {
     }
     return (
         // <Private allow={["admin", "broker", "user"]}>
+        <>
+         <Head>
+                <title>
+                    Brokers On Board | {tab && tab.toUpperCase()} - Best Real State Services
+                </title>
+            </Head>
         <section className="px-10 lg:px-20 py-4 lg:py-10">
             {tab === "rent" && (
                 <>
@@ -402,6 +409,8 @@ export default function Services() {
                 </form>
             </main>
         </section>
+        </>
         // </Private>
+
     );
 }

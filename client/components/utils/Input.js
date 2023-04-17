@@ -40,6 +40,7 @@ export default function Input({
                         value={value}
                         onChange={handleChange}
                         placeholder={label}
+                        maxLength={name === "phone" ? 10 : 200}
                         className="outline-none bg-transparent p-2 w-full text-gray-800"
                     />
                 )}

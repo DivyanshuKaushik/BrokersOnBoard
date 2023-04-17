@@ -130,16 +130,16 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const show = window.scrollY > 400;
-            if (show) {
-                setBg("bg-white shadow-md");
-                setHero(false);
-            } else {
-                setBg("bg-transparent");
-                if (pathname === "/") {
-                    setHero(true);
+            const show = window.scrollY > 400
+                if (show) {
+                    setBg("bg-white shadow-md");
+                    setHero(false);
+                } else {
+                    setBg("bg-transparent");
+                    if (pathname === "/") {
+                        setHero(true);
+                    }
                 }
-            }
         };
         document.addEventListener("scroll", handleScroll);
         return () => {
@@ -160,7 +160,7 @@ export default function Navbar() {
                 className={
                     pathname === "/"
                         ? `z-50 fixed ${navVisibility} ${bg} grid grid-cols-2 place-content-center place-items-center py-3 w-screen`
-                        : "z-50 sticky top-0 shadow-md grid grid-cols-2 place-content-center place-items-center py-3 w-screen"
+                        : "z-50 sticky bg-white top-0 shadow-md grid grid-cols-2 place-content-center place-items-center py-3 w-screen"
                 }
             >
                 {/* logo  */}
