@@ -36,6 +36,7 @@ export async function addNewProperty(property) {
         ) {
             throw Error("Please fill all the fields");
         }
+        // incease formdata size limit to 50mb
         const formData = new FormData();
         formData.append("name", name);
         formData.append("phone", phone);
@@ -52,6 +53,9 @@ export async function addNewProperty(property) {
         [...property.images].forEach(image => {
             formData.append("images", image);
         });
+        // increase formdata size limit to 50mb
+
+
         res.data = (
             await api.post("/property/add", formData, {
                 headers: {

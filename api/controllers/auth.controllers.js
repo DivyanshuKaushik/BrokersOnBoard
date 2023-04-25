@@ -1,0 +1,143 @@
+const User = require("../models/user.model");
+const validator = require("validator");
+const { uploadImage } = require("../utils/s3");
+const { uploadImageToDisk } = require("../utils/image");
+const admin = require("../firebase");
+async function userSignUp(req,res){
+    try{
+        const {name,phone} = req.body;
+        if(!name || !phone){
+            return res.status(422).json({error:"Please fill all the fields"});
+        }
+        const user = await User.findOne({phone});
+        if(user){
+            return res.status(422).json({error:"User already exists"});
+        }
+        const newUser = new User({name,phone});
+        await newUser.save();
+        // generate otp and send to user 
+            
+        return res.status(201).json({message:"User created successfully"});
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function brokerSignUp(req,res){
+    try{
+        const {firstName,lastName,email,phone,password} = req.body;
+        if(!firstName || !lastName || !phone){
+            return res.status(422).json({error:"Please fill all the fields"});
+        }
+        // if(!validator.isEmail(email)){
+        //     return res.status(422).json({error:"Please enter a valid email"});
+        // }
+        // const user = await User.findOne({phone});
+        // if(user){
+        //     return res.status(422).json({error:"User already exists"});
+        // }
+        const newUser = new User({firstName,lastName,phone,role:"broker"});
+        const saved = await newUser.save();
+        if(req.file){
+            // return res.status(422).json({error:"Please upload a visiting card"});
+            // const img_name = `visitingCards/${saved._id}`;
+            // const img_url = await uploadImage(
+            //     req.file?.buffer,
+            //     img_name
+            // );
+            const img_url = await uploadImageToDisk(req.file,"users");
+            await User.findByIdAndUpdate(saved._id,{visitingCard:img_url});
+        }
+        return res.status(201).json({message:"User created successfully"});
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function login(req,res){
+    try{
+        const {email,password} = req.body;
+        if(!email || !password){
+            return res.status(422).json({error:"Please fill all the fields"});
+        }
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(422).json({error:"User does not exist"});
+        }
+        const isMatch = await user.comparePassword(password);
+        if(!isMatch){
+            return res.status(422).json({error:"Invalid credentials"});
+        }
+        const token = await user.generateAuthToken();
+        res.cookie('accessToken',token,{expiresIn:'10d',httpOnly:true,secure:true,sameSite:'none'})
+        return res.status(200).json({token});
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function getAuthUser(req,res){
+    try{
+        const user = await User.findById(req.user._id).select('-password').select('-createdAt').select('-updatedAt').select('-__v');
+        return res.status(200).json({data:user});
+    }catch(err){
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function createAdmin(req,res){
+    try{
+        const {firstName,lastName,email,phone,password} = req.body;
+        if(!firstName || !lastName || !phone || !email || !password){
+            return res.status(422).json({error:"Please fill all the fields"});
+        }
+        if(!validator.isEmail(email)){
+            return res.status(422).json({error:"Please enter a valid email"});
+        }
+        const newUser = new User({firstName,lastName,email,password,phone,role:"admin"});
+        await newUser.save();
+        return res.status(201).json({message:"User created successfully"});
+
+    }catch(err){
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function getAllUsers(req,res){
+    try{
+        let {page,limit} = req.query;
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const data = await User.find({role:"user"}).skip((page-1)*limit).limit(limit).select('-password').select('-createdAt').select('-updatedAt').select('-__v');
+        return res.status(200).json({data});
+    }catch(err){
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+async function getAllBrokers(req,res){
+    try{
+        let {page,limit} = req.query;
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const data = await User.find({role:"broker"}).skip((page-1)*limit).limit(limit).select('-password').select('-createdAt').select('-updatedAt').select('-__v');
+        return res.status(200).json({data});
+    }catch(err){
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+module.exports = {
+    userSignUp,
+    brokerSignUp,
+    login,
+    getAuthUser,
+    createAdmin,
+    getAllUsers,
+    getAllBrokers
+}
